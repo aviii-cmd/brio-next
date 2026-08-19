@@ -26,6 +26,7 @@ import {
 } from "@/components/brio/ProjectsUI";
 import { MilestoneTimeline } from "@/components/brio/MilestoneTimeline";
 import { ProjectTaskList } from "@/components/brio/ProjectTaskList";
+import { ProjectPlanningHub } from "@/components/brio/ProjectPlanningHub";
 import { ArtifactGallery } from "@/components/brio/ArtifactGallery";
 import { SkillsAndTechnologies, TypedTagPicker } from "@/components/brio/SkillsAndTags";
 import {
@@ -312,6 +313,8 @@ function ProjectDetailPage() {
           </div>
         </div>
       </div>
+
+      <ProjectPlanningHub projectId={projectId} />
 
       {/* ============ STICKY SUB-NAV ============ */}
       <nav

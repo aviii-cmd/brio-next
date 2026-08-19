@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { PROJECT_TEMPLATE_BLUEPRINTS } from "@/lib/projectTemplates";
 import type {
   Profile,
   ProfileUpdate,
@@ -439,6 +440,32 @@ export const milestoneService = {
 // ============================================================
 // PROJECT TASKS (Project Workflow)
 // ============================================================
+export async function setupProjectTemplate(projectId: string, userId: string, template: string) {
+  const blueprint = PROJECT_TEMPLATE_BLUEPRINTS[template] ?? PROJECT_TEMPLATE_BLUEPRINTS.blank;
+  if (blueprint.milestones.length > 0) {
+    const { error } = await supabase.from("project_milestones").insert(
+      blueprint.milestones.map((title, index) => ({
+        project_id: projectId,
+        title,
+        sort_order: index,
+      })),
+    );
+    if (error) throw error;
+  }
+  if (blueprint.tasks.length > 0) {
+    const { error } = await supabase.from("project_tasks").insert(
+      blueprint.tasks.map((task, index) => ({
+        project_id: projectId,
+        user_id: userId,
+        title: task.title,
+        priority: task.priority,
+        sort_order: index,
+      })),
+    );
+    if (error) throw error;
+  }
+}
+
 export const projectTaskService = {
   async list(projectId: string): Promise<ProjectTask[]> {
     const { data, error } = await supabase

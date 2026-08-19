@@ -18,6 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { Project, ProjectStatus } from "@/types/database";
 import { cn } from "@/lib/utils";
+import { PROJECT_TEMPLATE_BLUEPRINTS } from "@/lib/projectTemplates";
+import { setupProjectTemplate } from "@/services/api";
 
 export const Route = createFileRoute("/dashboard/projects")({
   head: () => ({ meta: [{ title: "Projects — Brio" }] }),
@@ -107,7 +109,12 @@ function ProjectsHome() {
         start_year: new Date().getFullYear(),
       },
       {
-        onSuccess: (project) => {
+        onSuccess: async (project) => {
+          try {
+            await setupProjectTemplate(project.id, userId, values.template);
+          } catch {
+            // The project remains usable even if optional template setup fails.
+          }
           setCreateOpen(false);
           navigate({ to: "/dashboard/projects/$projectId", params: { projectId: project.id } });
         },
@@ -413,8 +420,11 @@ function CreateProjectDrawer({
           placeholder="A short overview of what this project is and why it matters."
         />
       </FormField>
-      <FormField label="Template" helper="Pre-fills section hints for common project types.">
-        <div className="grid grid-cols-2 gap-2">
+      <FormField
+        label="Template"
+        helper="Sets up milestones and starter tasks you can edit or remove."
+      >
+        <div className="grid gap-2 sm:grid-cols-2">
           {PROJECT_TEMPLATES.map((t) => (
             <button
               key={t.value}
@@ -427,10 +437,27 @@ function CreateProjectDrawer({
                   : "border-[var(--surface-3)] text-[var(--ink-2)] hover:bg-[var(--surface-2)]",
               )}
             >
-              {t.label}
+              <span className="block">{t.label}</span>
+              {PROJECT_TEMPLATE_BLUEPRINTS[t.value] && t.value !== "blank" && (
+                <span className="mt-1 block text-[10px] leading-tight text-[var(--ink-3)]">
+                  {PROJECT_TEMPLATE_BLUEPRINTS[t.value].milestones.length} milestones ·{" "}
+                  {PROJECT_TEMPLATE_BLUEPRINTS[t.value].tasks.length} starter tasks
+                </span>
+              )}
             </button>
           ))}
         </div>
+        {template !== "blank" && PROJECT_TEMPLATE_BLUEPRINTS[template] && (
+          <div className="mt-3 rounded-md border border-[var(--surface-3)] bg-[var(--surface-2)] p-3 text-[12px] text-[var(--ink-2)]">
+            <div className="font-medium text-[var(--ink)]">
+              {PROJECT_TEMPLATE_BLUEPRINTS[template].description}
+            </div>
+            <div className="mt-2 text-[11px] text-[var(--ink-3)]">
+              Your new workspace will start with editable milestones and tasks. Nothing is locked
+              in.
+            </div>
+          </div>
+        )}
       </FormField>
     </Drawer>
   );

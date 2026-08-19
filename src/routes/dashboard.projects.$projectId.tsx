@@ -25,6 +25,7 @@ import {
   SectionLabel,
 } from "@/components/brio/ProjectsUI";
 import { MilestoneTimeline } from "@/components/brio/MilestoneTimeline";
+import { ProjectTaskList } from "@/components/brio/ProjectTaskList";
 import { ArtifactGallery } from "@/components/brio/ArtifactGallery";
 import { SkillsAndTechnologies, TypedTagPicker } from "@/components/brio/SkillsAndTags";
 import {
@@ -376,6 +377,7 @@ function ProjectDetailPage() {
             <SectionLabel>Timeline &amp; Milestones</SectionLabel>
             <MilestoneTimeline projectId={projectId} />
           </div>
+          <ProjectTaskList projectId={projectId} userId={userId} />
         </section>
 
         {/* ============ ARTIFACTS ============ */}

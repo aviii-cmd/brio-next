@@ -3,6 +3,8 @@ export type Json = string | number | boolean | null | { [key: string]: Json } | 
 export type AchievementLevel = "School" | "Regional" | "National" | "International";
 export type SkillCategory = "Technical" | "Tools" | "Soft";
 export type ProjectStatus = "draft" | "published" | "archived";
+export type ProjectTaskStatus = "todo" | "in_progress" | "blocked" | "review" | "done";
+export type ProjectTaskPriority = "low" | "medium" | "high";
 export type ArtifactKind = "image" | "video" | "file" | "link";
 export type TagType = "skill" | "tech" | "domain";
 
@@ -218,6 +220,41 @@ export interface Database {
           description?: string;
           milestone_date?: string;
           outcome?: string;
+          sort_order?: number;
+        };
+        Relationships: [];
+      };
+      project_tasks: {
+        Row: {
+          id: string;
+          project_id: string;
+          user_id: string;
+          title: string;
+          description: string;
+          status: ProjectTaskStatus;
+          priority: ProjectTaskPriority;
+          due_date: string | null;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          user_id: string;
+          title: string;
+          description?: string;
+          status?: ProjectTaskStatus;
+          priority?: ProjectTaskPriority;
+          due_date?: string | null;
+          sort_order?: number;
+        };
+        Update: {
+          title?: string;
+          description?: string;
+          status?: ProjectTaskStatus;
+          priority?: ProjectTaskPriority;
+          due_date?: string | null;
           sort_order?: number;
         };
         Relationships: [];
@@ -785,6 +822,9 @@ export type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"];
 export type Project = Database["public"]["Tables"]["projects"]["Row"];
 export type ProjectInsert = Database["public"]["Tables"]["projects"]["Insert"];
 export type ProjectUpdate = Database["public"]["Tables"]["projects"]["Update"];
+export type ProjectTask = Database["public"]["Tables"]["project_tasks"]["Row"];
+export type ProjectTaskInsert = Database["public"]["Tables"]["project_tasks"]["Insert"];
+export type ProjectTaskUpdate = Database["public"]["Tables"]["project_tasks"]["Update"];
 export type Experience = Database["public"]["Tables"]["experience"]["Row"];
 export type ExperienceInsert = Database["public"]["Tables"]["experience"]["Insert"];
 export type ExperienceUpdate = Database["public"]["Tables"]["experience"]["Update"];

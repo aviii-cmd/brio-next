@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import {
   projectService,
   milestoneService,
+  projectTaskService,
   artifactService,
   tagService,
   calculateProjectReadiness,
@@ -14,6 +15,8 @@ import type {
   ProjectStatus,
   ProjectMilestoneInsert,
   ProjectMilestoneUpdate,
+  ProjectTaskInsert,
+  ProjectTaskUpdate,
   TagType,
 } from "@/types/database";
 
@@ -23,6 +26,7 @@ import type {
 export const workspaceKeys = {
   project: (id: string) => ["project", id] as const,
   milestones: (projectId: string) => ["project_milestones", projectId] as const,
+  tasks: (projectId: string) => ["project_tasks", projectId] as const,
   artifacts: (projectId: string) => ["project_artifacts", projectId] as const,
   tags: (userId: string) => ["tags", userId] as const,
   projectTags: (projectId: string) => ["project_tags", projectId] as const,
@@ -267,6 +271,54 @@ export function useReorderMilestones() {
     onSuccess: (_data, { projectId }) => {
       qc.invalidateQueries({ queryKey: workspaceKeys.milestones(projectId) });
     },
+  });
+}
+
+// ============================================================
+// PROJECT TASKS
+// ============================================================
+export function useProjectTasks(projectId: string | undefined) {
+  return useQuery({
+    queryKey: workspaceKeys.tasks(projectId ?? ""),
+    queryFn: () => projectTaskService.list(projectId!),
+    enabled: !!projectId,
+    staleTime: 30 * 1000,
+  });
+}
+
+export function useCreateProjectTask() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (task: ProjectTaskInsert) => projectTaskService.create(task),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: workspaceKeys.tasks(data.project_id) });
+      toast.success("Task added");
+    },
+    onError: () => toast.error("Failed to add task"),
+  });
+}
+
+export function useUpdateProjectTask() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, updates }: { id: string; updates: ProjectTaskUpdate; projectId: string }) =>
+      projectTaskService.update(id, updates),
+    onSuccess: (_data, { projectId }) => {
+      qc.invalidateQueries({ queryKey: workspaceKeys.tasks(projectId) });
+    },
+    onError: () => toast.error("Failed to update task"),
+  });
+}
+
+export function useDeleteProjectTask() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id }: { id: string; projectId: string }) => projectTaskService.delete(id),
+    onSuccess: (_data, { projectId }) => {
+      qc.invalidateQueries({ queryKey: workspaceKeys.tasks(projectId) });
+      toast.success("Task removed");
+    },
+    onError: () => toast.error("Failed to remove task"),
   });
 }
 

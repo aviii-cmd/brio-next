@@ -22,6 +22,9 @@ import type {
   ProjectMilestone,
   ProjectMilestoneInsert,
   ProjectMilestoneUpdate,
+  ProjectTask,
+  ProjectTaskInsert,
+  ProjectTaskUpdate,
   ProjectArtifact,
   ProjectArtifactInsert,
   Tag,
@@ -428,6 +431,53 @@ export const milestoneService = {
     await Promise.all(
       items.map((i) =>
         supabase.from("project_milestones").update({ sort_order: i.sort_order }).eq("id", i.id),
+      ),
+    );
+  },
+};
+
+// ============================================================
+// PROJECT TASKS (Project Workflow)
+// ============================================================
+export const projectTaskService = {
+  async list(projectId: string): Promise<ProjectTask[]> {
+    const { data, error } = await supabase
+      .from("project_tasks")
+      .select("*")
+      .eq("project_id", projectId)
+      .order("sort_order", { ascending: true })
+      .order("due_date", { ascending: true, nullsFirst: false })
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return data ?? [];
+  },
+
+  async create(task: ProjectTaskInsert): Promise<ProjectTask> {
+    const { data, error } = await supabase.from("project_tasks").insert(task).select().single();
+    if (error) throw error;
+    return data;
+  },
+
+  async update(id: string, updates: ProjectTaskUpdate): Promise<ProjectTask> {
+    const { data, error } = await supabase
+      .from("project_tasks")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  },
+
+  async delete(id: string): Promise<void> {
+    const { error } = await supabase.from("project_tasks").delete().eq("id", id);
+    if (error) throw error;
+  },
+
+  async reorder(items: { id: string; sort_order: number }[]): Promise<void> {
+    await Promise.all(
+      items.map((item) =>
+        supabase.from("project_tasks").update({ sort_order: item.sort_order }).eq("id", item.id),
       ),
     );
   },

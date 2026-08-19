@@ -3,6 +3,7 @@ import { Avatar, Badge, Button, Card, EmptyState } from "@/components/brio/ui";
 import { ExternalLink, ChevronRight, Folders, TrendingUp } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useProjects, useProfileCounts, useProfileCompletion } from "@/hooks/useData";
+import { ProjectWorkload } from "@/components/brio/ProjectWorkload";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({ meta: [{ title: "Overview — Brio" }] }),
@@ -207,6 +208,8 @@ function Overview() {
           </div>
         </section>
       )}
+
+      <ProjectWorkload userId={userId} />
 
       {/* Featured projects */}
       <section>

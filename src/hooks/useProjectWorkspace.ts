@@ -13,6 +13,8 @@ import {
 import { queryKeys } from "@/hooks/useData";
 import type {
   ProjectStatus,
+  Project,
+  ProjectTask,
   ProjectMilestoneInsert,
   ProjectMilestoneUpdate,
   ProjectTaskInsert,
@@ -31,7 +33,10 @@ export const workspaceKeys = {
   tags: (userId: string) => ["tags", userId] as const,
   projectTags: (projectId: string) => ["project_tags", projectId] as const,
   publicProject: (id: string) => ["public_project", id] as const,
+  workload: (userId: string) => ["project_workload", userId] as const,
 };
+
+export type WorkloadTask = ProjectTask & { projectTitle: string };
 
 // ============================================================
 // SINGLE PROJECT
@@ -41,6 +46,27 @@ export function useProject(projectId: string | undefined) {
     queryKey: workspaceKeys.project(projectId ?? ""),
     queryFn: () => projectService.getById(projectId!),
     enabled: !!projectId,
+    staleTime: 30 * 1000,
+  });
+}
+
+export function useProjectWorkload(userId: string | undefined) {
+  return useQuery({
+    queryKey: workspaceKeys.workload(userId ?? ""),
+    queryFn: async (): Promise<WorkloadTask[]> => {
+      const [tasks, projects] = await Promise.all([
+        projectTaskService.listForUser(userId!),
+        projectService.list(userId!),
+      ]);
+      const projectTitles = new Map<string, Project>(
+        projects.map((project) => [project.id, project]),
+      );
+      return tasks.map((task) => ({
+        ...task,
+        projectTitle: projectTitles.get(task.project_id)?.title ?? "Untitled project",
+      }));
+    },
+    enabled: !!userId,
     staleTime: 30 * 1000,
   });
 }

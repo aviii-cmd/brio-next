@@ -452,6 +452,17 @@ export const projectTaskService = {
     return data ?? [];
   },
 
+  async listForUser(userId: string): Promise<ProjectTask[]> {
+    const { data, error } = await supabase
+      .from("project_tasks")
+      .select("*")
+      .eq("user_id", userId)
+      .order("due_date", { ascending: true, nullsFirst: false })
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return data ?? [];
+  },
+
   async create(task: ProjectTaskInsert): Promise<ProjectTask> {
     const { data, error } = await supabase.from("project_tasks").insert(task).select().single();
     if (error) throw error;

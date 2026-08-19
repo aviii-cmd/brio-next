@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { AlertCircle, CalendarDays, Check, Circle } from "lucide-react";
-import { useProjectWorkload, type WorkloadTask } from "@/hooks/useProjectWorkspace";
+import { useState } from "react";
+import { AlertCircle, Ban, CalendarDays, Check, Circle, RotateCcw, Trash2 } from "lucide-react";
+import {
+  useDeleteProjectTask,
+  useProjectWorkload,
+  useUpdateProjectTask,
+  type WorkloadTask,
+} from "@/hooks/useProjectWorkspace";
 import type { ProjectTaskStatus } from "@/types/database";
 
 type WorkloadFilter = "all" | "overdue" | "today" | "blocked" | "completed";
@@ -29,8 +35,16 @@ function taskDueTime(task: WorkloadTask) {
   return task.due_date ? dayStart(new Date(`${task.due_date}T00:00:00`)) : null;
 }
 
+function dateForTomorrow() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow.toISOString().slice(0, 10);
+}
+
 export function ProjectWorkload({ userId }: { userId: string | undefined }) {
   const { data: tasks = [], isLoading, isError } = useProjectWorkload(userId);
+  const updateTask = useUpdateProjectTask();
+  const deleteTask = useDeleteProjectTask();
   const [filter, setFilter] = useState<WorkloadFilter>("all");
   const today = dayStart(new Date());
   const tomorrow = today + 24 * 60 * 60 * 1000;
@@ -163,7 +177,25 @@ export function ProjectWorkload({ userId }: { userId: string | undefined }) {
               </div>
               <div className="divide-y divide-[var(--surface-3)]">
                 {group.tasks.map((task) => (
-                  <WorkloadTaskRow key={`${group.label}-${task.id}`} task={task} />
+                  <WorkloadTaskRow
+                    key={`${group.label}-${task.id}`}
+                    task={task}
+                    onReschedule={() =>
+                      updateTask.mutate({
+                        id: task.id,
+                        projectId: task.project_id,
+                        updates: { due_date: dateForTomorrow() },
+                      })
+                    }
+                    onBlock={() =>
+                      updateTask.mutate({
+                        id: task.id,
+                        projectId: task.project_id,
+                        updates: { status: "blocked" },
+                      })
+                    }
+                    onRemove={() => deleteTask.mutate({ id: task.id, projectId: task.project_id })}
+                  />
                 ))}
               </div>
             </div>
@@ -174,38 +206,79 @@ export function ProjectWorkload({ userId }: { userId: string | undefined }) {
   );
 }
 
-function WorkloadTaskRow({ task }: { task: WorkloadTask }) {
+function WorkloadTaskRow({
+  task,
+  onReschedule,
+  onBlock,
+  onRemove,
+}: {
+  task: WorkloadTask;
+  onReschedule: () => void;
+  onBlock: () => void;
+  onRemove: () => void;
+}) {
+  const isOverdue =
+    task.status !== "done" &&
+    taskDueTime(task) !== null &&
+    taskDueTime(task)! < dayStart(new Date());
   return (
-    <Link
-      to="/dashboard/projects/$projectId"
-      params={{ projectId: task.project_id }}
-      className="flex items-start gap-3 px-4 py-3 transition-colors hover:bg-[var(--surface-2)]"
-    >
-      <div className="mt-0.5 shrink-0 text-[var(--ink-3)]">
-        {task.status === "done" ? (
-          <Check className="h-4 w-4 text-[var(--success)]" />
-        ) : (
-          <Circle className="h-4 w-4" />
-        )}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div
-          className={`text-[13px] ${task.status === "done" ? "text-[var(--ink-3)] line-through" : "text-[var(--ink)]"}`}
-        >
-          {task.title}
-        </div>
-        <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[var(--ink-3)]">
-          <span>{task.projectTitle}</span>
-          <span>·</span>
-          <span>{STATUS_LABELS[task.status]}</span>
-          {task.due_date && (
-            <>
-              <span>·</span>
-              <span>{task.due_date}</span>
-            </>
+    <div className="px-4 py-3 transition-colors hover:bg-[var(--surface-2)]">
+      <Link
+        to="/dashboard/projects/$projectId"
+        params={{ projectId: task.project_id }}
+        className="flex items-start gap-3"
+      >
+        <div className="mt-0.5 shrink-0 text-[var(--ink-3)]">
+          {task.status === "done" ? (
+            <Check className="h-4 w-4 text-[var(--success)]" />
+          ) : (
+            <Circle className="h-4 w-4" />
           )}
         </div>
-      </div>
-    </Link>
+        <div className="min-w-0 flex-1">
+          <div
+            className={`text-[13px] ${task.status === "done" ? "text-[var(--ink-3)] line-through" : "text-[var(--ink)]"}`}
+          >
+            {task.title}
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[var(--ink-3)]">
+            <span>{task.projectTitle}</span>
+            <span>·</span>
+            <span>{STATUS_LABELS[task.status]}</span>
+            {task.due_date && (
+              <>
+                <span>·</span>
+                <span>{task.due_date}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </Link>
+      {isOverdue && (
+        <div className="mt-2 flex flex-wrap gap-1.5 pl-7">
+          <button
+            type="button"
+            onClick={onReschedule}
+            className="inline-flex items-center gap-1 rounded border border-[var(--surface-3)] bg-white px-2 py-1 text-[11px] text-[var(--ink-2)] hover:bg-[var(--surface-2)]"
+          >
+            <RotateCcw className="h-3 w-3" /> Reschedule tomorrow
+          </button>
+          <button
+            type="button"
+            onClick={onBlock}
+            className="inline-flex items-center gap-1 rounded border border-[var(--surface-3)] bg-white px-2 py-1 text-[11px] text-[var(--ink-2)] hover:bg-[var(--surface-2)]"
+          >
+            <Ban className="h-3 w-3" /> Mark blocked
+          </button>
+          <button
+            type="button"
+            onClick={onRemove}
+            className="inline-flex items-center gap-1 rounded border border-[var(--surface-3)] bg-white px-2 py-1 text-[11px] text-[var(--ink-2)] hover:text-[var(--error)]"
+          >
+            <Trash2 className="h-3 w-3" /> Remove
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

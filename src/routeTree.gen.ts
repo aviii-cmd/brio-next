@@ -9,53 +9,34 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
-import { Route as PProjectIdRouteImport } from './routes/p.$projectId'
-import { Route as DashboardTimelineRouteImport } from './routes/dashboard.timeline'
-import { Route as DashboardSkillsRouteImport } from './routes/dashboard.skills'
-import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
-import { Route as DashboardOutputRouteImport } from './routes/dashboard.output'
-import { Route as DashboardExperienceRouteImport } from './routes/dashboard.experience'
-import { Route as DashboardEducationRouteImport } from './routes/dashboard.education'
-import { Route as DashboardDiscoverRouteImport } from './routes/dashboard.discover'
-import { Route as DashboardAchievementsRouteImport } from './routes/dashboard.achievements'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
-import { Route as DashboardProjectsProjectIdRouteImport } from './routes/dashboard.projects.$projectId'
-import { Route as DashboardDiscoverTrackerRouteImport } from './routes/dashboard.discover.tracker'
-import { Route as DashboardDiscoverSearchRouteImport } from './routes/dashboard.discover.search'
-import { Route as DashboardDiscoverSavedRouteImport } from './routes/dashboard.discover.saved'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAchievementsRouteImport } from './routes/dashboard.achievements'
+import { Route as DashboardDiscoverRouteImport } from './routes/dashboard.discover'
+import { Route as DashboardEducationRouteImport } from './routes/dashboard.education'
+import { Route as DashboardExperienceRouteImport } from './routes/dashboard.experience'
+import { Route as DashboardOutputRouteImport } from './routes/dashboard.output'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard.projects'
+import { Route as DashboardSkillsRouteImport } from './routes/dashboard.skills'
+import { Route as DashboardTimelineRouteImport } from './routes/dashboard.timeline'
+import { Route as PProjectIdRouteImport } from './routes/p.$projectId'
 import { Route as DashboardDiscoverOpportunityIdRouteImport } from './routes/dashboard.discover.$opportunityId'
+import { Route as DashboardDiscoverSavedRouteImport } from './routes/dashboard.discover.saved'
+import { Route as DashboardDiscoverSearchRouteImport } from './routes/dashboard.discover.search'
+import { Route as DashboardDiscoverTrackerRouteImport } from './routes/dashboard.discover.tracker'
+import { Route as DashboardProjectsProjectIdRouteImport } from './routes/dashboard.projects.$projectId'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingRoute = OnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -63,9 +44,39 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -73,39 +84,9 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
-const PProjectIdRoute = PProjectIdRouteImport.update({
-  id: '/p/$projectId',
-  path: '/p/$projectId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardTimelineRoute = DashboardTimelineRouteImport.update({
-  id: '/timeline',
-  path: '/timeline',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardSkillsRoute = DashboardSkillsRouteImport.update({
-  id: '/skills',
-  path: '/skills',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardOutputRoute = DashboardOutputRouteImport.update({
-  id: '/output',
-  path: '/output',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardExperienceRoute = DashboardExperienceRouteImport.update({
-  id: '/experience',
-  path: '/experience',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardEducationRoute = DashboardEducationRouteImport.update({
-  id: '/education',
-  path: '/education',
+const DashboardAchievementsRoute = DashboardAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardDiscoverRoute = DashboardDiscoverRouteImport.update({
@@ -113,43 +94,68 @@ const DashboardDiscoverRoute = DashboardDiscoverRouteImport.update({
   path: '/discover',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardAchievementsRoute = DashboardAchievementsRouteImport.update({
-  id: '/achievements',
-  path: '/achievements',
+const DashboardEducationRoute = DashboardEducationRouteImport.update({
+  id: '/education',
+  path: '/education',
   getParentRoute: () => DashboardRoute,
 } as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
+const DashboardExperienceRoute = DashboardExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardOutputRoute = DashboardOutputRouteImport.update({
+  id: '/output',
+  path: '/output',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSkillsRoute = DashboardSkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardTimelineRoute = DashboardTimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const PProjectIdRoute = PProjectIdRouteImport.update({
+  id: '/p/$projectId',
+  path: '/p/$projectId',
   getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardProjectsProjectIdRoute =
-  DashboardProjectsProjectIdRouteImport.update({
-    id: '/$projectId',
-    path: '/$projectId',
-    getParentRoute: () => DashboardProjectsRoute,
-  } as any)
-const DashboardDiscoverTrackerRoute =
-  DashboardDiscoverTrackerRouteImport.update({
-    id: '/tracker',
-    path: '/tracker',
-    getParentRoute: () => DashboardDiscoverRoute,
-  } as any)
-const DashboardDiscoverSearchRoute = DashboardDiscoverSearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => DashboardDiscoverRoute,
-} as any)
-const DashboardDiscoverSavedRoute = DashboardDiscoverSavedRouteImport.update({
-  id: '/saved',
-  path: '/saved',
-  getParentRoute: () => DashboardDiscoverRoute,
 } as any)
 const DashboardDiscoverOpportunityIdRoute =
   DashboardDiscoverOpportunityIdRouteImport.update({
     id: '/$opportunityId',
     path: '/$opportunityId',
     getParentRoute: () => DashboardDiscoverRoute,
+  } as any)
+const DashboardDiscoverSavedRoute = DashboardDiscoverSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => DashboardDiscoverRoute,
+} as any)
+const DashboardDiscoverSearchRoute = DashboardDiscoverSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => DashboardDiscoverRoute,
+} as any)
+const DashboardDiscoverTrackerRoute =
+  DashboardDiscoverTrackerRouteImport.update({
+    id: '/tracker',
+    path: '/tracker',
+    getParentRoute: () => DashboardDiscoverRoute,
+  } as any)
+const DashboardProjectsProjectIdRoute =
+  DashboardProjectsProjectIdRouteImport.update({
+    id: '/$projectId',
+    path: '/$projectId',
+    getParentRoute: () => DashboardProjectsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/onboarding'
+    | '/reset-password'
     | '/settings'
     | '/signup'
     | '/auth/callback'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/onboarding'
+    | '/reset-password'
     | '/settings'
     | '/signup'
     | '/auth/callback'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/onboarding'
+    | '/reset-password'
     | '/settings'
     | '/signup'
     | '/auth/callback'
@@ -310,6 +322,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
@@ -318,39 +331,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -360,11 +345,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -374,53 +401,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/p/$projectId': {
-      id: '/p/$projectId'
-      path: '/p/$projectId'
-      fullPath: '/p/$projectId'
-      preLoaderRoute: typeof PProjectIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/timeline': {
-      id: '/dashboard/timeline'
-      path: '/timeline'
-      fullPath: '/dashboard/timeline'
-      preLoaderRoute: typeof DashboardTimelineRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/skills': {
-      id: '/dashboard/skills'
-      path: '/skills'
-      fullPath: '/dashboard/skills'
-      preLoaderRoute: typeof DashboardSkillsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/projects': {
-      id: '/dashboard/projects'
-      path: '/projects'
-      fullPath: '/dashboard/projects'
-      preLoaderRoute: typeof DashboardProjectsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/output': {
-      id: '/dashboard/output'
-      path: '/output'
-      fullPath: '/dashboard/output'
-      preLoaderRoute: typeof DashboardOutputRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/experience': {
-      id: '/dashboard/experience'
-      path: '/experience'
-      fullPath: '/dashboard/experience'
-      preLoaderRoute: typeof DashboardExperienceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/education': {
-      id: '/dashboard/education'
-      path: '/education'
-      fullPath: '/dashboard/education'
-      preLoaderRoute: typeof DashboardEducationRouteImport
+    '/dashboard/achievements': {
+      id: '/dashboard/achievements'
+      path: '/achievements'
+      fullPath: '/dashboard/achievements'
+      preLoaderRoute: typeof DashboardAchievementsRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/discover': {
@@ -430,39 +415,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDiscoverRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/achievements': {
-      id: '/dashboard/achievements'
-      path: '/achievements'
-      fullPath: '/dashboard/achievements'
-      preLoaderRoute: typeof DashboardAchievementsRouteImport
+    '/dashboard/education': {
+      id: '/dashboard/education'
+      path: '/education'
+      fullPath: '/dashboard/education'
+      preLoaderRoute: typeof DashboardEducationRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/auth/callback': {
-      id: '/auth/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
+    '/dashboard/experience': {
+      id: '/dashboard/experience'
+      path: '/experience'
+      fullPath: '/dashboard/experience'
+      preLoaderRoute: typeof DashboardExperienceRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/output': {
+      id: '/dashboard/output'
+      path: '/output'
+      fullPath: '/dashboard/output'
+      preLoaderRoute: typeof DashboardOutputRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/projects': {
+      id: '/dashboard/projects'
+      path: '/projects'
+      fullPath: '/dashboard/projects'
+      preLoaderRoute: typeof DashboardProjectsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/skills': {
+      id: '/dashboard/skills'
+      path: '/skills'
+      fullPath: '/dashboard/skills'
+      preLoaderRoute: typeof DashboardSkillsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/timeline': {
+      id: '/dashboard/timeline'
+      path: '/timeline'
+      fullPath: '/dashboard/timeline'
+      preLoaderRoute: typeof DashboardTimelineRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/p/$projectId': {
+      id: '/p/$projectId'
+      path: '/p/$projectId'
+      fullPath: '/p/$projectId'
+      preLoaderRoute: typeof PProjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/projects/$projectId': {
-      id: '/dashboard/projects/$projectId'
-      path: '/$projectId'
-      fullPath: '/dashboard/projects/$projectId'
-      preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport
-      parentRoute: typeof DashboardProjectsRoute
-    }
-    '/dashboard/discover/tracker': {
-      id: '/dashboard/discover/tracker'
-      path: '/tracker'
-      fullPath: '/dashboard/discover/tracker'
-      preLoaderRoute: typeof DashboardDiscoverTrackerRouteImport
-      parentRoute: typeof DashboardDiscoverRoute
-    }
-    '/dashboard/discover/search': {
-      id: '/dashboard/discover/search'
-      path: '/search'
-      fullPath: '/dashboard/discover/search'
-      preLoaderRoute: typeof DashboardDiscoverSearchRouteImport
+    '/dashboard/discover/$opportunityId': {
+      id: '/dashboard/discover/$opportunityId'
+      path: '/$opportunityId'
+      fullPath: '/dashboard/discover/$opportunityId'
+      preLoaderRoute: typeof DashboardDiscoverOpportunityIdRouteImport
       parentRoute: typeof DashboardDiscoverRoute
     }
     '/dashboard/discover/saved': {
@@ -472,12 +478,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDiscoverSavedRouteImport
       parentRoute: typeof DashboardDiscoverRoute
     }
-    '/dashboard/discover/$opportunityId': {
-      id: '/dashboard/discover/$opportunityId'
-      path: '/$opportunityId'
-      fullPath: '/dashboard/discover/$opportunityId'
-      preLoaderRoute: typeof DashboardDiscoverOpportunityIdRouteImport
+    '/dashboard/discover/search': {
+      id: '/dashboard/discover/search'
+      path: '/search'
+      fullPath: '/dashboard/discover/search'
+      preLoaderRoute: typeof DashboardDiscoverSearchRouteImport
       parentRoute: typeof DashboardDiscoverRoute
+    }
+    '/dashboard/discover/tracker': {
+      id: '/dashboard/discover/tracker'
+      path: '/tracker'
+      fullPath: '/dashboard/discover/tracker'
+      preLoaderRoute: typeof DashboardDiscoverTrackerRouteImport
+      parentRoute: typeof DashboardDiscoverRoute
+    }
+    '/dashboard/projects/$projectId': {
+      id: '/dashboard/projects/$projectId'
+      path: '/$projectId'
+      fullPath: '/dashboard/projects/$projectId'
+      preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport
+      parentRoute: typeof DashboardProjectsRoute
     }
   }
 }
@@ -544,6 +564,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
   AuthCallbackRoute: AuthCallbackRoute,

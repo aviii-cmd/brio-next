@@ -3,6 +3,16 @@ import { AlertCircle, CalendarDays, Check, Circle } from "lucide-react";
 import { useProjectWorkload, type WorkloadTask } from "@/hooks/useProjectWorkspace";
 import type { ProjectTaskStatus } from "@/types/database";
 
+type WorkloadFilter = "all" | "overdue" | "today" | "blocked" | "completed";
+
+const FILTERS: { value: WorkloadFilter; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "overdue", label: "Overdue" },
+  { value: "today", label: "Today" },
+  { value: "blocked", label: "Blocked" },
+  { value: "completed", label: "Completed" },
+];
+
 const STATUS_LABELS: Record<ProjectTaskStatus, string> = {
   todo: "To do",
   in_progress: "In progress",
@@ -21,6 +31,7 @@ function taskDueTime(task: WorkloadTask) {
 
 export function ProjectWorkload({ userId }: { userId: string | undefined }) {
   const { data: tasks = [], isLoading, isError } = useProjectWorkload(userId);
+  const [filter, setFilter] = useState<WorkloadFilter>("all");
   const today = dayStart(new Date());
   const tomorrow = today + 24 * 60 * 60 * 1000;
 
@@ -35,29 +46,62 @@ export function ProjectWorkload({ userId }: { userId: string | undefined }) {
   });
   const done = tasks.filter((task) => task.status === "done").slice(0, 4);
 
-  const groups = [
-    {
-      label: "Overdue",
-      tasks: overdue,
-      icon: <AlertCircle className="h-4 w-4 text-[var(--error)]" />,
-    },
-    {
-      label: "Today",
-      tasks: todayTasks,
-      icon: <CalendarDays className="h-4 w-4 text-[var(--accent-warm)]" />,
-    },
-    { label: "Blocked", tasks: blocked, icon: <Circle className="h-4 w-4 text-[var(--ink-3)]" /> },
-    {
-      label: "Upcoming",
-      tasks: upcoming,
-      icon: <CalendarDays className="h-4 w-4 text-[var(--ink-3)]" />,
-    },
-    {
-      label: "Recently done",
-      tasks: done,
-      icon: <Check className="h-4 w-4 text-[var(--success)]" />,
-    },
-  ].filter((group) => group.tasks.length > 0);
+  const filteredTasks =
+    filter === "overdue"
+      ? overdue
+      : filter === "today"
+        ? todayTasks
+        : filter === "blocked"
+          ? blocked
+          : filter === "completed"
+            ? tasks.filter((task) => task.status === "done")
+            : tasks;
+
+  const groups =
+    filter === "all"
+      ? [
+          {
+            label: "Overdue",
+            tasks: overdue,
+            icon: <AlertCircle className="h-4 w-4 text-[var(--error)]" />,
+          },
+          {
+            label: "Today",
+            tasks: todayTasks,
+            icon: <CalendarDays className="h-4 w-4 text-[var(--accent-warm)]" />,
+          },
+          {
+            label: "Blocked",
+            tasks: blocked,
+            icon: <Circle className="h-4 w-4 text-[var(--ink-3)]" />,
+          },
+          {
+            label: "Upcoming",
+            tasks: upcoming,
+            icon: <CalendarDays className="h-4 w-4 text-[var(--ink-3)]" />,
+          },
+          {
+            label: "Recently done",
+            tasks: done,
+            icon: <Check className="h-4 w-4 text-[var(--success)]" />,
+          },
+        ].filter((group) => group.tasks.length > 0)
+      : [
+          {
+            label: FILTERS.find((item) => item.value === filter)?.label ?? "Tasks",
+            tasks: filteredTasks,
+            icon:
+              filter === "completed" ? (
+                <Check className="h-4 w-4 text-[var(--success)]" />
+              ) : filter === "overdue" ? (
+                <AlertCircle className="h-4 w-4 text-[var(--error)]" />
+              ) : filter === "today" ? (
+                <CalendarDays className="h-4 w-4 text-[var(--accent-warm)]" />
+              ) : (
+                <Circle className="h-4 w-4 text-[var(--ink-3)]" />
+              ),
+          },
+        ].filter((group) => group.tasks.length > 0);
 
   return (
     <section>
@@ -74,6 +118,23 @@ export function ProjectWorkload({ userId }: { userId: string | undefined }) {
         >
           View projects →
         </Link>
+      </div>
+      <div className="mb-3 flex flex-wrap gap-1.5">
+        {FILTERS.map((item) => (
+          <button
+            key={item.value}
+            type="button"
+            aria-pressed={filter === item.value}
+            onClick={() => setFilter(item.value)}
+            className={`rounded-md border px-2.5 py-1 text-[11px] transition-colors ${
+              filter === item.value
+                ? "border-[var(--ink)] bg-[var(--ink)] text-white"
+                : "border-[var(--surface-3)] bg-white text-[var(--ink-2)] hover:bg-[var(--surface-2)]"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
       {isLoading && (

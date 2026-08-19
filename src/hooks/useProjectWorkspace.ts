@@ -133,14 +133,8 @@ export function useProjectAutosave(projectId: string, userId: string, delay = 70
 export function useSetProjectStatus() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      id,
-      status,
-    }: {
-      id: string;
-      status: ProjectStatus;
-      userId: string;
-    }) => projectService.setStatus(id, status),
+    mutationFn: ({ id, status }: { id: string; status: ProjectStatus; userId: string }) =>
+      projectService.setStatus(id, status),
     onSuccess: (data, { userId }) => {
       qc.setQueryData(workspaceKeys.project(data.id), data);
       qc.invalidateQueries({ queryKey: queryKeys.projects(userId) });
@@ -323,8 +317,7 @@ export function useUploadArtifact() {
       category?: string;
       caption?: string;
       onProgress?: (pct: number) => void;
-    }) =>
-      artifactService.uploadFile(userId, projectId, file, { category, caption, onProgress }),
+    }) => artifactService.uploadFile(userId, projectId, file, { category, caption, onProgress }),
     onSuccess: (_data, { projectId }) => {
       qc.invalidateQueries({ queryKey: workspaceKeys.artifacts(projectId) });
       toast.success("Uploaded");

@@ -48,7 +48,8 @@ function OutputPage() {
   });
   const [generating, setGenerating] = useState(false);
 
-  const hasContent = counts.projects + counts.experience + counts.education + counts.achievements > 0;
+  const hasContent =
+    counts.projects + counts.experience + counts.education + counts.achievements > 0;
 
   const generate = () => {
     if (!hasContent) {
@@ -59,7 +60,9 @@ function OutputPage() {
     // Architecture supports future PDF generation via server function
     setTimeout(() => {
       setGenerating(false);
-      toast.success("Export ready — PDF generation coming soon. Copy the shareable URL to share now.");
+      toast.success(
+        "Export ready — PDF generation coming soon. Copy the shareable URL to share now.",
+      );
     }, 1200);
   };
 
@@ -92,10 +95,7 @@ function OutputPage() {
 
   return (
     <>
-      <PageHeader
-        title="Output"
-        subtitle="Generate tailored exports from your profile."
-      />
+      <PageHeader title="Output" subtitle="Generate tailored exports from your profile." />
 
       {!hasContent ? (
         <Card className="border-dashed">
@@ -139,12 +139,14 @@ function OutputPage() {
                 Include in export
               </div>
               <div className="space-y-3 rounded-md border border-[var(--surface-3)] bg-white p-4">
-                {([
-                  ["projects", `Projects (${counts.projects})`],
-                  ["experience", `Experience (${counts.experience})`],
-                  ["education", `Education (${counts.education})`],
-                  ["achievements", `Achievements (${counts.achievements})`],
-                ] as const).map(([k, l], i) => (
+                {(
+                  [
+                    ["projects", `Projects (${counts.projects})`],
+                    ["experience", `Experience (${counts.experience})`],
+                    ["education", `Education (${counts.education})`],
+                    ["achievements", `Achievements (${counts.achievements})`],
+                  ] as const
+                ).map(([k, l], i) => (
                   <div
                     key={k}
                     className={`flex items-center justify-between text-[13px] text-[var(--ink)] ${i > 0 ? "border-t border-[var(--surface-3)] pt-3" : ""}`}
@@ -199,7 +201,11 @@ function OutputPage() {
                 {profile?.name || "Your Name"}
               </div>
               <div className="text-[13px] text-[var(--ink-3)]">
-                {[profile?.school, profile?.graduation_year ? `Class of ${profile.graduation_year}` : null, profile?.location]
+                {[
+                  profile?.school,
+                  profile?.graduation_year ? `Class of ${profile.graduation_year}` : null,
+                  profile?.location,
+                ]
                   .filter(Boolean)
                   .join(" · ")}
               </div>
@@ -212,13 +218,17 @@ function OutputPage() {
                   {experience.map((e) => (
                     <div key={e.id} className="mb-3">
                       <div className="flex justify-between text-[13px] text-[var(--ink)]">
-                        <span className="font-medium">{e.role} · {e.org}</span>
+                        <span className="font-medium">
+                          {e.role} · {e.org}
+                        </span>
                         <span className="text-[var(--ink-3)]">
                           {e.start_date}–{e.is_current ? "Present" : e.end_date}
                         </span>
                       </div>
                       {e.bullets.map((b, i) => (
-                        <div key={i} className="text-[12px] text-[var(--ink-2)]">– {b}</div>
+                        <div key={i} className="text-[12px] text-[var(--ink-2)]">
+                          – {b}
+                        </div>
                       ))}
                     </div>
                   ))}
@@ -248,7 +258,8 @@ function OutputPage() {
                       <span className="font-medium text-[var(--ink)]">{e.institution}</span>
                       {" — "}
                       <span className="text-[var(--ink-2)]">
-                        {e.program}{e.end_year ? `, ${e.end_year}` : ""}
+                        {e.program}
+                        {e.end_year ? `, ${e.end_year}` : ""}
                         {e.gpa ? ` · GPA ${e.gpa}` : ""}
                       </span>
                     </div>
@@ -276,10 +287,21 @@ function OutputPage() {
             </div>
 
             <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
-              <Button variant="secondary" size="lg" className="w-full sm:w-auto" onClick={copyShareUrl}>
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={copyShareUrl}
+              >
                 Copy shareable URL
               </Button>
-              <Button variant="primary" size="lg" className="w-full sm:w-auto" onClick={generate} loading={generating}>
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={generate}
+                loading={generating}
+              >
                 Generate PDF
               </Button>
             </div>

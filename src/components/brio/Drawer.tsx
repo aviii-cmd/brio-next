@@ -39,12 +39,7 @@ export function Drawer({
   if (!open) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[100]"
-      role="dialog"
-      aria-modal="true"
-      aria-label={title}
-    >
+    <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label={title}>
       {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
@@ -65,14 +60,10 @@ export function Drawer({
           </button>
         </div>
         {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-5">
-          {children}
-        </div>
+        <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-5">{children}</div>
         {/* Footer */}
         {footer && (
-          <div className="shrink-0 border-t border-[var(--surface-3)] px-6 py-4">
-            {footer}
-          </div>
+          <div className="shrink-0 border-t border-[var(--surface-3)] px-6 py-4">{footer}</div>
         )}
       </div>
     </div>

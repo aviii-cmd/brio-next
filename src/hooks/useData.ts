@@ -125,7 +125,9 @@ export function useUpdateProject() {
       await qc.cancelQueries({ queryKey: queryKeys.projects(userId) });
       const prev = qc.getQueryData(queryKeys.projects(userId));
       qc.setQueryData(queryKeys.projects(userId), (old: typeof prev) =>
-        Array.isArray(old) ? old.map((p: { id: string }) => (p.id === id ? { ...p, ...updates } : p)) : old,
+        Array.isArray(old)
+          ? old.map((p: { id: string }) => (p.id === id ? { ...p, ...updates } : p))
+          : old,
       );
       return { prev, userId };
     },
@@ -198,7 +200,9 @@ export function useUpdateExperience() {
       await qc.cancelQueries({ queryKey: queryKeys.experience(userId) });
       const prev = qc.getQueryData(queryKeys.experience(userId));
       qc.setQueryData(queryKeys.experience(userId), (old: typeof prev) =>
-        Array.isArray(old) ? old.map((e: { id: string }) => (e.id === id ? { ...e, ...updates } : e)) : old,
+        Array.isArray(old)
+          ? old.map((e: { id: string }) => (e.id === id ? { ...e, ...updates } : e))
+          : old,
       );
       return { prev, userId };
     },

@@ -3,7 +3,12 @@ import { useMemo, useState } from "react";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/brio/ui";
 import { TagChip } from "@/components/brio/ProjectsUI";
-import { useTags, useProjectTags, useAddProjectTag, useRemoveProjectTag } from "@/hooks/useProjectWorkspace";
+import {
+  useTags,
+  useProjectTags,
+  useAddProjectTag,
+  useRemoveProjectTag,
+} from "@/hooks/useProjectWorkspace";
 import type { TagType } from "@/types/database";
 import { cn } from "@/lib/utils";
 

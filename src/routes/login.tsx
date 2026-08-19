@@ -146,12 +146,21 @@ function LoginPage() {
           </FormField>
 
           <div className="mb-4 -mt-2 text-right">
-            <Link to="/forgot-password" className="text-[13px] text-[var(--ink-2)] hover:text-[var(--ink)]">
+            <Link
+              to="/forgot-password"
+              className="text-[13px] text-[var(--ink-2)] hover:text-[var(--ink)]"
+            >
               Forgot password?
             </Link>
           </div>
 
-          <Button type="submit" variant="primary" size="lg" className="w-full" loading={isSubmitting}>
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            className="w-full"
+            loading={isSubmitting}
+          >
             Log in
           </Button>
         </form>

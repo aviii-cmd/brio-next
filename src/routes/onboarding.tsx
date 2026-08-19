@@ -13,10 +13,30 @@ export const Route = createFileRoute("/onboarding")({
 });
 
 const intents = [
-  { id: "internship", label: "Internship search", desc: "Finding your first or next internship", Icon: Briefcase },
-  { id: "research", label: "Research opportunities", desc: "Undergraduate or graduate research roles", Icon: FlaskConical },
-  { id: "university", label: "University applications", desc: "Applying to colleges or graduate programs", Icon: GraduationCap },
-  { id: "portfolio", label: "Personal portfolio", desc: "Showcasing your work online", Icon: FolderHeart },
+  {
+    id: "internship",
+    label: "Internship search",
+    desc: "Finding your first or next internship",
+    Icon: Briefcase,
+  },
+  {
+    id: "research",
+    label: "Research opportunities",
+    desc: "Undergraduate or graduate research roles",
+    Icon: FlaskConical,
+  },
+  {
+    id: "university",
+    label: "University applications",
+    desc: "Applying to colleges or graduate programs",
+    Icon: GraduationCap,
+  },
+  {
+    id: "portfolio",
+    label: "Personal portfolio",
+    desc: "Showcasing your work online",
+    Icon: FolderHeart,
+  },
 ];
 
 function OnboardingPageWrapper() {
@@ -123,7 +143,13 @@ function OnboardingPage() {
 
       const firstExperience =
         !skip && tab === "experience" && expOrg
-          ? { org: expOrg, role: expRole, start_date: expStart, end_date: expEnd, bullets: expBullet }
+          ? {
+              org: expOrg,
+              role: expRole,
+              start_date: expStart,
+              end_date: expEnd,
+              bullets: expBullet,
+            }
           : null;
 
       await onboardingService.complete(
@@ -139,7 +165,11 @@ function OnboardingPage() {
     }
   };
 
-  const labels = ["What brings you here?", "Tell us about yourself", "Add your first piece of work"];
+  const labels = [
+    "What brings you here?",
+    "Tell us about yourself",
+    "Add your first piece of work",
+  ];
 
   if (finishing) {
     return (
@@ -148,7 +178,9 @@ function OnboardingPage() {
           <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[var(--surface-3)]" />
           <div className="text-[20px] font-medium text-[var(--ink)]">{name || "Your name"}</div>
           <div className="mt-1 text-[13px] text-[var(--ink-3)]">{school || "Your school"}</div>
-          <div className="mt-3 text-[13px] italic text-[var(--ink-2)]">{goal || "Your goal statement"}</div>
+          <div className="mt-3 text-[13px] italic text-[var(--ink-2)]">
+            {goal || "Your goal statement"}
+          </div>
           <div className="mx-auto mt-6 max-w-[280px] rounded-md border border-[var(--surface-3)] bg-[var(--surface-2)] p-4 text-left">
             <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">
               {tab === "project" ? "Project" : "Experience"}
@@ -216,12 +248,7 @@ function OnboardingPage() {
                 })}
               </div>
               <div className="mt-8 flex justify-end">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  disabled={!intent}
-                  onClick={() => goToStep(2)}
-                >
+                <Button variant="primary" size="lg" disabled={!intent} onClick={() => goToStep(2)}>
                   Continue →
                 </Button>
               </div>

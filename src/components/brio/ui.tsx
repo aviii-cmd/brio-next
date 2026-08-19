@@ -17,14 +17,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "h-11 px-6 text-[14px]",
     };
     const variants = {
-      primary:
-        "bg-[var(--ink)] text-white hover:bg-[#2A2A2A] active:scale-[0.98]",
-      warm:
-        "bg-[var(--accent-warm)] text-white hover:brightness-110 active:scale-[0.98]",
+      primary: "bg-[var(--ink)] text-white hover:bg-[#2A2A2A] active:scale-[0.98]",
+      warm: "bg-[var(--accent-warm)] text-white hover:brightness-110 active:scale-[0.98]",
       secondary:
         "border border-[var(--surface-3)] bg-white text-[var(--ink)] hover:bg-[var(--surface-2)]",
-      ghost:
-        "text-[var(--ink-2)] hover:text-[var(--ink)] hover:bg-[var(--surface-2)]",
+      ghost: "text-[var(--ink-2)] hover:text-[var(--ink)] hover:bg-[var(--surface-2)]",
       destructive: "bg-[var(--error)] text-white hover:brightness-110",
     };
     return (
@@ -83,9 +80,7 @@ export const Textarea = React.forwardRef<
     className={cn(
       "min-h-[88px] w-full rounded-[4px] border bg-white px-3 py-2.5 text-[15px] text-[var(--ink)] placeholder:text-[var(--ink-3)] outline-none transition-all duration-150 resize-y",
       "focus:border-[var(--ink)] focus:ring-2 focus:ring-[rgba(10,10,10,0.08)]",
-      error
-        ? "border-[var(--error)] focus:border-[var(--error)]"
-        : "border-[var(--surface-3)]",
+      error ? "border-[var(--error)] focus:border-[var(--error)]" : "border-[var(--surface-3)]",
       className,
     )}
     {...props}
@@ -93,9 +88,16 @@ export const Textarea = React.forwardRef<
 ));
 Textarea.displayName = "Textarea";
 
-export function Label({ children, className, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
+export function Label({
+  children,
+  className,
+  ...props
+}: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
-    <label className={cn("mb-1 block text-[13px] font-medium text-[var(--ink-2)]", className)} {...props}>
+    <label
+      className={cn("mb-1 block text-[13px] font-medium text-[var(--ink-2)]", className)}
+      {...props}
+    >
       {children}
     </label>
   );
@@ -121,9 +123,7 @@ export function FormField({
         {required && <span className="ml-0.5 text-[var(--ink-3)]">*</span>}
       </Label>
       {children}
-      {helper && !error && (
-        <p className="mt-1 text-[11px] text-[var(--ink-3)]">{helper}</p>
-      )}
+      {helper && !error && <p className="mt-1 text-[11px] text-[var(--ink-3)]">{helper}</p>}
       {error && <p className="mt-1 text-[11px] text-[var(--error)]">{error}</p>}
     </div>
   );
@@ -135,16 +135,20 @@ export function Badge({
   className,
 }: {
   children: React.ReactNode;
-  variant?: "default" | "featured" | "skill" | "level-school" | "level-regional" | "level-national" | "level-international";
+  variant?:
+    | "default"
+    | "featured"
+    | "skill"
+    | "level-school"
+    | "level-regional"
+    | "level-national"
+    | "level-international";
   className?: string;
 }) {
   const variants = {
-    default:
-      "bg-[var(--surface-2)] border border-[var(--surface-3)] text-[var(--ink-2)]",
-    featured:
-      "border text-[var(--accent-warm)]",
-    skill:
-      "bg-[var(--surface-2)] border border-[var(--surface-3)] text-[var(--ink-2)]",
+    default: "bg-[var(--surface-2)] border border-[var(--surface-3)] text-[var(--ink-2)]",
+    featured: "border text-[var(--accent-warm)]",
+    skill: "bg-[var(--surface-2)] border border-[var(--surface-3)] text-[var(--ink-2)]",
     "level-school": "bg-[var(--surface-3)] text-[var(--ink-2)]",
     "level-regional": "bg-[#D8D6D2] text-[var(--ink)]",
     "level-national": "bg-[#9C9A95] text-white",
@@ -168,7 +172,12 @@ export function Badge({
   );
 }
 
-export function Card({ children, className, hover, ...props }: React.HTMLAttributes<HTMLDivElement> & { hover?: boolean }) {
+export function Card({
+  children,
+  className,
+  hover,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { hover?: boolean }) {
   return (
     <div
       className={cn(
@@ -294,9 +303,7 @@ export function PageHeader({
         <h1 className="text-[24px] font-medium leading-[1.3] tracking-[-0.02em] text-[var(--ink)]">
           {title}
         </h1>
-        {subtitle && (
-          <p className="mt-1 text-[13px] text-[var(--ink-2)]">{subtitle}</p>
-        )}
+        {subtitle && <p className="mt-1 text-[13px] text-[var(--ink-2)]">{subtitle}</p>}
       </div>
       {action}
     </div>

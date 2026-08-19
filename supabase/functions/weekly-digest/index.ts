@@ -77,22 +77,37 @@ Deno.serve(async (req: Request) => {
         continue;
       }
       if (!RESEND_API_KEY || !profile.email) {
-        results.push({ userId: profile.id as string, sent: false, reason: "no RESEND_API_KEY or email" });
+        results.push({
+          userId: profile.id as string,
+          sent: false,
+          reason: "no RESEND_API_KEY or email",
+        });
         continue;
       }
 
-      const sent = await sendDigestEmail(profile.email as string, (profile.name as string) ?? "", summary);
+      const sent = await sendDigestEmail(
+        profile.email as string,
+        (profile.name as string) ?? "",
+        summary,
+      );
       results.push({ userId: profile.id as string, sent });
     }
 
-    return jsonResponse({ processed: results.length, sent: results.filter((r) => r.sent).length, results });
+    return jsonResponse({
+      processed: results.length,
+      sent: results.filter((r) => r.sent).length,
+      results,
+    });
   } catch (err) {
     console.error("weekly-digest failed:", err);
     return jsonResponse({ error: err instanceof Error ? err.message : String(err) }, 500);
   }
 });
 
-async function buildDigestForUser(supabase: SupabaseClient, userId: string): Promise<DigestSummary> {
+async function buildDigestForUser(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<DigestSummary> {
   const fourteenDaysFromNow = new Date(Date.now() + 14 * 86_400_000).toISOString();
 
   const [recommendationRpc, closingSoonQuery] = await Promise.all([
@@ -122,10 +137,14 @@ async function buildDigestForUser(supabase: SupabaseClient, userId: string): Pro
       .in("id", ids);
     if (error) throw error;
     const byId = new Map((opportunities ?? []).map((o) => [o.id as string, o as OpportunityStub]));
-    recommended = recRows.map((r) => byId.get(r.opportunity_id)).filter((o): o is OpportunityStub => Boolean(o));
+    recommended = recRows
+      .map((r) => byId.get(r.opportunity_id))
+      .filter((o): o is OpportunityStub => Boolean(o));
   }
 
-  const closingSoon = (closingSoonQuery.data ?? []) as (OpportunityStub & { application_deadline: string })[];
+  const closingSoon = (closingSoonQuery.data ?? []) as (OpportunityStub & {
+    application_deadline: string;
+  })[];
 
   return { recommended, closingSoon };
 }

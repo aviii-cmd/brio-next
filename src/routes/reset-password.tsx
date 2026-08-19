@@ -55,7 +55,10 @@ function ResetPasswordPage() {
             <p className="mt-2 text-[13px] text-[var(--ink-2)]">
               Your password has been changed. Redirecting you to log in…
             </p>
-            <Link to="/login" className="mt-6 block text-[13px] font-medium text-[var(--accent-warm)]">
+            <Link
+              to="/login"
+              className="mt-6 block text-[13px] font-medium text-[var(--accent-warm)]"
+            >
               Go to login →
             </Link>
           </div>
@@ -83,7 +86,11 @@ function ResetPasswordPage() {
                 />
               </FormField>
 
-              <FormField label="Confirm new password" required error={errors.confirmPassword?.message}>
+              <FormField
+                label="Confirm new password"
+                required
+                error={errors.confirmPassword?.message}
+              >
                 <Input
                   type="password"
                   placeholder="Repeat your new password"
@@ -93,7 +100,13 @@ function ResetPasswordPage() {
                 />
               </FormField>
 
-              <Button type="submit" variant="primary" size="lg" className="w-full" loading={isSubmitting}>
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                className="w-full"
+                loading={isSubmitting}
+              >
                 Update password
               </Button>
             </form>

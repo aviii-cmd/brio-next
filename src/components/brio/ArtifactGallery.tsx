@@ -59,7 +59,9 @@ export function ArtifactGallery({ projectId, userId }: { projectId: string; user
           projectId,
           file,
           onProgress: (pct) =>
-            setTasks((t) => t.map((task) => (task.id === taskId ? { ...task, progress: pct } : task))),
+            setTasks((t) =>
+              t.map((task) => (task.id === taskId ? { ...task, progress: pct } : task)),
+            ),
         },
         {
           onSettled: () => setTasks((t) => t.filter((task) => task.id !== taskId)),
@@ -127,17 +129,27 @@ export function ArtifactGallery({ projectId, userId }: { projectId: string; user
         </Button>
       </div>
 
-      {linkOpen && <AddLinkForm projectId={projectId} onDone={() => setLinkOpen(false)} onAdd={addLink} />}
+      {linkOpen && (
+        <AddLinkForm projectId={projectId} onDone={() => setLinkOpen(false)} onAdd={addLink} />
+      )}
 
       {/* In-flight uploads: background completion with progress (PRD §8) */}
       {tasks.length > 0 && (
         <div className="mt-3 space-y-2">
           {tasks.map((t) => (
-            <div key={t.id} className="flex items-center gap-3 rounded-md border border-[var(--surface-3)] px-3 py-2">
+            <div
+              key={t.id}
+              className="flex items-center gap-3 rounded-md border border-[var(--surface-3)] px-3 py-2"
+            >
               <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin text-[var(--ink-3)]" />
-              <span className="min-w-0 flex-1 truncate text-[12px] text-[var(--ink-2)]">{t.name}</span>
+              <span className="min-w-0 flex-1 truncate text-[12px] text-[var(--ink-2)]">
+                {t.name}
+              </span>
               <div className="h-1 w-16 shrink-0 overflow-hidden rounded-full bg-[var(--surface-3)]">
-                <div className="h-full bg-[var(--ink)] transition-all" style={{ width: `${t.progress}%` }} />
+                <div
+                  className="h-full bg-[var(--ink)] transition-all"
+                  style={{ width: `${t.progress}%` }}
+                />
               </div>
             </div>
           ))}
@@ -146,8 +158,8 @@ export function ArtifactGallery({ projectId, userId }: { projectId: string; user
 
       {artifacts.length === 0 && tasks.length === 0 ? (
         <p className="mt-4 text-[13px] text-[var(--ink-3)]">
-          No evidence yet. Screenshots, demo videos, and links to GitHub or Figma all strengthen this
-          project.
+          No evidence yet. Screenshots, demo videos, and links to GitHub or Figma all strengthen
+          this project.
         </p>
       ) : (
         <div className="mt-5 space-y-6">
@@ -161,7 +173,9 @@ export function ArtifactGallery({ projectId, userId }: { projectId: string; user
                   <ArtifactCard
                     key={a.id}
                     artifact={a}
-                    onCaptionChange={(caption) => updateArtifact.mutate({ id: a.id, updates: { caption }, projectId })}
+                    onCaptionChange={(caption) =>
+                      updateArtifact.mutate({ id: a.id, updates: { caption }, projectId })
+                    }
                     onDelete={() => deleteArtifact.mutate({ id: a.id, projectId })}
                   />
                 ))}
@@ -203,7 +217,9 @@ function ArtifactCard({
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-[var(--ink-3)]">
             <ArtifactIcon artifact={artifact} />
-            <span className="max-w-[90%] truncate text-[11px]">{artifact.file_name ?? artifact.url}</span>
+            <span className="max-w-[90%] truncate text-[11px]">
+              {artifact.file_name ?? artifact.url}
+            </span>
           </div>
         )}
       </a>
@@ -283,7 +299,11 @@ function AddLinkForm({
         </FormField>
       </div>
       <FormField label="Caption" helper="Optional">
-        <Input value={caption} onChange={(e) => setCaption(e.target.value)} placeholder="What is this?" />
+        <Input
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+          placeholder="What is this?"
+        />
       </FormField>
       <div className="flex justify-end gap-2">
         <Button variant="ghost" size="sm" onClick={onDone}>

@@ -9,9 +9,19 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Brio — Build your professional identity before graduation" },
-      { name: "description", content: "Brio is the professional profile for ambitious students. Log every project, achievement, and experience in one place. Generate tailored resumes and portfolios in minutes." },
-      { property: "og:title", content: "Brio — Build your professional identity before graduation" },
-      { property: "og:description", content: "One profile. Every output. Built for ambitious students." },
+      {
+        name: "description",
+        content:
+          "Brio is the professional profile for ambitious students. Log every project, achievement, and experience in one place. Generate tailored resumes and portfolios in minutes.",
+      },
+      {
+        property: "og:title",
+        content: "Brio — Build your professional identity before graduation",
+      },
+      {
+        property: "og:description",
+        content: "One profile. Every output. Built for ambitious students.",
+      },
     ],
   }),
   component: Index,
@@ -52,7 +62,10 @@ function TopNav({ scrolled }: { scrolled: boolean }) {
       }}
     >
       <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-6">
-        <Link to="/" className="font-serif text-[18px] font-semibold tracking-[-0.02em] text-[var(--ink)]">
+        <Link
+          to="/"
+          className="font-serif text-[18px] font-semibold tracking-[-0.02em] text-[var(--ink)]"
+        >
           Brio
         </Link>
         <nav className="hidden items-center gap-7 md:flex">
@@ -61,14 +74,26 @@ function TopNav({ scrolled }: { scrolled: boolean }) {
             { label: "What you store", href: "#what-you-store" },
             { label: "FAQ", href: "#faq" },
           ].map((l) => (
-            <a key={l.label} href={l.href} className="text-[13px] text-[var(--ink-2)] transition-colors duration-150 hover:text-[var(--ink)]">
+            <a
+              key={l.label}
+              href={l.href}
+              className="text-[13px] text-[var(--ink-2)] transition-colors duration-150 hover:text-[var(--ink)]"
+            >
               {l.label}
             </a>
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-          <Link to="/login"><Button variant="ghost" size="sm">Log in</Button></Link>
-          <Link to="/signup"><Button variant="warm" size="sm">Start free</Button></Link>
+          <Link to="/login">
+            <Button variant="ghost" size="sm">
+              Log in
+            </Button>
+          </Link>
+          <Link to="/signup">
+            <Button variant="warm" size="sm">
+              Start free
+            </Button>
+          </Link>
         </div>
         <button
           onClick={() => setOpen(!open)}
@@ -76,7 +101,11 @@ function TopNav({ scrolled }: { scrolled: boolean }) {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
-          {open ? <ChevronUp className="h-5 w-5" aria-hidden="true" /> : <ChevronDown className="h-5 w-5" aria-hidden="true" />}
+          {open ? (
+            <ChevronUp className="h-5 w-5" aria-hidden="true" />
+          ) : (
+            <ChevronDown className="h-5 w-5" aria-hidden="true" />
+          )}
         </button>
       </div>
       {open && (
@@ -97,10 +126,14 @@ function TopNav({ scrolled }: { scrolled: boolean }) {
           ))}
           <div className="mt-4 flex gap-2">
             <Link to="/login" className="flex-1" onClick={() => setOpen(false)}>
-              <Button variant="secondary" size="md" className="w-full">Log in</Button>
+              <Button variant="secondary" size="md" className="w-full">
+                Log in
+              </Button>
             </Link>
             <Link to="/signup" className="flex-1" onClick={() => setOpen(false)}>
-              <Button variant="warm" size="md" className="w-full">Start free</Button>
+              <Button variant="warm" size="md" className="w-full">
+                Start free
+              </Button>
             </Link>
           </div>
         </div>
@@ -127,7 +160,8 @@ function Hero() {
           more than a spreadsheet.
         </h1>
         <p className="mx-auto mt-5 max-w-[580px] text-[16px] leading-[1.6] tracking-[-0.01em] text-[var(--ink-2)] sm:mt-6 sm:text-[18px]">
-          Brio is a structured profile that organises every project, experience, and achievement in one place — and turns them into the exact resume a recruiter needs.
+          Brio is a structured profile that organises every project, experience, and achievement in
+          one place — and turns them into the exact resume a recruiter needs.
         </p>
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
           <Link to="/signup" className="w-full sm:w-auto">
@@ -136,7 +170,9 @@ function Hero() {
             </Button>
           </Link>
           <a href="#how-it-works" className="w-full sm:w-auto">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">See how it works</Button>
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              See how it works
+            </Button>
           </a>
         </div>
         <p className="mt-3 text-[11px] text-[var(--ink-3)]">
@@ -170,7 +206,10 @@ function ProductPreviewMock() {
           </div>
         </div>
         {["Overview", "Projects", "Experience", "Education", "Skills"].map((l, i) => (
-          <div key={l} className={`mb-1 h-7 rounded px-2 text-[12px] leading-7 ${i === 0 ? "bg-[var(--surface-2)] text-[var(--ink)] font-medium" : "text-[var(--ink-2)]"}`}>
+          <div
+            key={l}
+            className={`mb-1 h-7 rounded px-2 text-[12px] leading-7 ${i === 0 ? "bg-[var(--surface-2)] text-[var(--ink)] font-medium" : "text-[var(--ink-2)]"}`}
+          >
             {l}
           </div>
         ))}
@@ -179,15 +218,22 @@ function ProductPreviewMock() {
       <div className="sm:hidden border-r border-[var(--surface-3)] bg-[var(--surface)]" />
       <div className="overflow-hidden p-4 sm:p-6 md:p-8">
         <div className="text-[18px] font-medium text-[var(--ink)] sm:text-[20px]">Alex Rivera</div>
-        <div className="text-[12px] text-[var(--ink-3)] sm:text-[13px]">UC Berkeley · CS · Class of 2026</div>
+        <div className="text-[12px] text-[var(--ink-3)] sm:text-[13px]">
+          UC Berkeley · CS · Class of 2026
+        </div>
         <div className="mt-2 text-[12px] text-[var(--ink-2)] italic sm:mt-3 sm:text-[13px]">
           "Seeking a product management internship at a consumer tech company."
         </div>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-2 lg:grid-cols-3">
           {["CalRoute", "Climate Dashboard", "react-query-devtools-lite"].map((p) => (
-            <div key={p} className="rounded-md border border-[var(--surface-3)] bg-[var(--surface)] p-3 sm:p-4">
+            <div
+              key={p}
+              className="rounded-md border border-[var(--surface-3)] bg-[var(--surface)] p-3 sm:p-4"
+            >
               <div className="text-[12px] font-medium text-[var(--ink)] sm:text-[13px]">{p}</div>
-              <div className="mt-1 text-[10px] uppercase tracking-[0.02em] text-[var(--ink-3)] sm:text-[11px]">Project</div>
+              <div className="mt-1 text-[10px] uppercase tracking-[0.02em] text-[var(--ink-3)] sm:text-[11px]">
+                Project
+              </div>
               <div className="mt-2 h-2 w-full rounded bg-[var(--surface-3)]" />
               <div className="mt-1 h-2 w-3/4 rounded bg-[var(--surface-3)]" />
             </div>
@@ -200,12 +246,30 @@ function ProductPreviewMock() {
 
 function WhatYouStore() {
   const categories = [
-    { label: "Projects", items: ["Side projects", "Hackathon builds", "Research work", "Open source contributions"] },
-    { label: "Experience", items: ["Internships", "Part-time roles", "Freelance work", "Teaching & tutoring"] },
-    { label: "Leadership", items: ["Club officerships", "Event organising", "Team captaincy", "Community initiatives"] },
-    { label: "Achievements", items: ["Competitions", "Scholarships", "Publications", "Dean's list"] },
-    { label: "Education", items: ["Degrees", "Relevant coursework", "Study abroad", "Online certifications"] },
-    { label: "Skills", items: ["Technical skills", "Languages", "Tools", "Derived from your work"] },
+    {
+      label: "Projects",
+      items: ["Side projects", "Hackathon builds", "Research work", "Open source contributions"],
+    },
+    {
+      label: "Experience",
+      items: ["Internships", "Part-time roles", "Freelance work", "Teaching & tutoring"],
+    },
+    {
+      label: "Leadership",
+      items: ["Club officerships", "Event organising", "Team captaincy", "Community initiatives"],
+    },
+    {
+      label: "Achievements",
+      items: ["Competitions", "Scholarships", "Publications", "Dean's list"],
+    },
+    {
+      label: "Education",
+      items: ["Degrees", "Relevant coursework", "Study abroad", "Online certifications"],
+    },
+    {
+      label: "Skills",
+      items: ["Technical skills", "Languages", "Tools", "Derived from your work"],
+    },
   ];
 
   const ref = useRef<HTMLDivElement>(null);
@@ -229,20 +293,32 @@ function WhatYouStore() {
             Everything that makes you stand out.
           </h2>
           <p className="mt-3 max-w-[540px] text-[15px] leading-[1.6] text-[var(--ink-2)]">
-            Students miss opportunities because their best work is scattered across notes, docs, and emails. Brio gives all of it a permanent home.
+            Students miss opportunities because their best work is scattered across notes, docs, and
+            emails. Brio gives all of it a permanent home.
           </p>
         </div>
         <div
           ref={ref}
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-[500ms] ease-out"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
           {categories.map((cat) => (
-            <div key={cat.label} className="rounded-md border border-[var(--surface-3)] bg-white p-5">
-              <div className="mb-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--ink-3)]">{cat.label}</div>
+            <div
+              key={cat.label}
+              className="rounded-md border border-[var(--surface-3)] bg-white p-5"
+            >
+              <div className="mb-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--ink-3)]">
+                {cat.label}
+              </div>
               <ul className="space-y-1.5">
                 {cat.items.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-[14px] text-[var(--ink-2)]">
+                  <li
+                    key={item}
+                    className="flex items-center gap-2 text-[14px] text-[var(--ink-2)]"
+                  >
                     <span className="text-[var(--accent-warm)] text-[10px]">●</span>
                     {item}
                   </li>
@@ -291,7 +367,15 @@ function HowItWorks() {
   );
 }
 
-function HowItWorksStep({ number, heading, body }: { number: string; heading: string; body: string }) {
+function HowItWorksStep({
+  number,
+  heading,
+  body,
+}: {
+  number: string;
+  heading: string;
+  body: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -309,9 +393,14 @@ function HowItWorksStep({ number, heading, body }: { number: string; heading: st
     <div
       ref={ref}
       className="transition-all duration-[400ms] ease-out"
-      style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+      }}
     >
-      <div className="mb-4 font-serif text-[40px] font-normal tracking-[-0.04em] text-[var(--surface-3)]">{number}</div>
+      <div className="mb-4 font-serif text-[40px] font-normal tracking-[-0.04em] text-[var(--surface-3)]">
+        {number}
+      </div>
       <h3 className="text-[17px] font-medium tracking-[-0.02em] text-[var(--ink)]">{heading}</h3>
       <p className="mt-2 text-[14px] leading-[1.7] text-[var(--ink-2)]">{body}</p>
     </div>
@@ -347,10 +436,15 @@ function FeatureBlock({
     <div
       ref={ref}
       className={`grid items-center gap-10 md:grid-cols-2 ${reverse ? "md:[&>div:first-child]:order-2" : ""} transition-all duration-[400ms] ease-out`}
-      style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(24px)" }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(24px)",
+      }}
     >
       <div>
-        <h3 className="text-[20px] font-medium tracking-[-0.02em] text-[var(--ink)] sm:text-[24px]">{heading}</h3>
+        <h3 className="text-[20px] font-medium tracking-[-0.02em] text-[var(--ink)] sm:text-[24px]">
+          {heading}
+        </h3>
         <p className="mt-3 text-[15px] leading-[1.7] text-[var(--ink-2)]">{body}</p>
         <p className="mt-4 text-[13px] text-[var(--ink-3)]">{detail}</p>
       </div>
@@ -394,13 +488,24 @@ function FeatureNarrative() {
 
 function MockProjectForm() {
   return (
-    <div className="rounded-md border border-[var(--surface-3)] bg-white p-5" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
+    <div
+      className="rounded-md border border-[var(--surface-3)] bg-white p-5"
+      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}
+    >
       <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">New project</div>
-      <div className="mt-2 text-[15px] font-medium text-[var(--ink)]">CalRoute — Campus Navigation App</div>
+      <div className="mt-2 text-[15px] font-medium text-[var(--ink)]">
+        CalRoute — Campus Navigation App
+      </div>
       <div className="mt-4 space-y-3">
         {[
-          { l: "Problem", v: "Freshmen kept arriving late to class because campus maps ignored elevation." },
-          { l: "Action", v: "Shipped an iOS app in Swift with accessible routing and live elevation data." },
+          {
+            l: "Problem",
+            v: "Freshmen kept arriving late to class because campus maps ignored elevation.",
+          },
+          {
+            l: "Action",
+            v: "Shipped an iOS app in Swift with accessible routing and live elevation data.",
+          },
           { l: "Result", v: "1,800 active users, 32% fewer late arrivals reported." },
         ].map((r) => (
           <div key={r.l} className="border-l-2 border-[var(--surface-3)] pl-3">
@@ -415,35 +520,60 @@ function MockProjectForm() {
 
 function MockSkillsPanel() {
   return (
-    <div className="rounded-md border border-[var(--surface-3)] bg-white p-5" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
+    <div
+      className="rounded-md border border-[var(--surface-3)] bg-white p-5"
+      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}
+    >
       <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">Technical</div>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {["Swift", "TypeScript", "React", "Python", "D3"].map((s) => (
-          <span key={s} className="inline-flex rounded-full border border-[var(--surface-3)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--ink-2)]">{s}</span>
+          <span
+            key={s}
+            className="inline-flex rounded-full border border-[var(--surface-3)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--ink-2)]"
+          >
+            {s}
+          </span>
         ))}
       </div>
-      <div className="mt-4 text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">Soft Skills</div>
+      <div className="mt-4 text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">
+        Soft Skills
+      </div>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {["User Research", "Product Design"].map((s) => (
-          <span key={s} className="inline-flex rounded-full border border-[var(--surface-3)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--ink-2)]">{s}</span>
+          <span
+            key={s}
+            className="inline-flex rounded-full border border-[var(--surface-3)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--ink-2)]"
+          >
+            {s}
+          </span>
         ))}
       </div>
-      <div className="mt-4 text-[11px] text-[var(--ink-3)]">Derived from CalRoute · Linear Internship</div>
+      <div className="mt-4 text-[11px] text-[var(--ink-3)]">
+        Derived from CalRoute · Linear Internship
+      </div>
     </div>
   );
 }
 
 function MockExportPanel() {
   return (
-    <div className="rounded-md border border-[var(--surface-3)] bg-white p-5" style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
-      <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">Choose a format</div>
+    <div
+      className="rounded-md border border-[var(--surface-3)] bg-white p-5"
+      style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}
+    >
+      <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">
+        Choose a format
+      </div>
       <div className="mt-2 space-y-2">
         {[
           { t: "Resume — One Page", a: true },
           { t: "Portfolio View" },
           { t: "Application Snippets" },
         ].map((o) => (
-          <div key={o.t} className={`rounded-md border p-3 text-[13px] ${o.a ? "border-[var(--ink)] bg-[var(--surface-2)] font-medium text-[var(--ink)]" : "border-[var(--surface-3)] text-[var(--ink-2)]"}`}>
+          <div
+            key={o.t}
+            className={`rounded-md border p-3 text-[13px] ${o.a ? "border-[var(--ink)] bg-[var(--surface-2)] font-medium text-[var(--ink)]" : "border-[var(--surface-3)] text-[var(--ink-2)]"}`}
+          >
             {o.t}
           </div>
         ))}
@@ -490,11 +620,16 @@ function WhyItMatters() {
         <div
           ref={ref}
           className="grid gap-8 md:grid-cols-3 transition-all duration-[500ms] ease-out"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
           {points.map((p) => (
             <div key={p.heading}>
-              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-[var(--ink)]">{p.heading}</h3>
+              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-[var(--ink)]">
+                {p.heading}
+              </h3>
               <p className="mt-2 text-[14px] leading-[1.7] text-[var(--ink-2)]">{p.body}</p>
             </div>
           ))}
@@ -513,16 +648,32 @@ function TrustSignals() {
         </h2>
         <div className="mx-auto mt-6 grid max-w-[820px] grid-cols-2 gap-x-6 gap-y-4 text-center sm:grid-cols-3 md:flex md:items-center md:justify-between">
           {["BERKELEY", "STANFORD", "MIT", "OXFORD", "Y COMBINATOR", "NEO SCHOLARS"].map((u) => (
-            <span key={u} className="text-[12px] font-medium tracking-[0.06em] text-[var(--ink-3)] sm:text-[13px]">{u}</span>
+            <span
+              key={u}
+              className="text-[12px] font-medium tracking-[0.06em] text-[var(--ink-3)] sm:text-[13px]"
+            >
+              {u}
+            </span>
           ))}
         </div>
         <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2">
           {[
-            { q: "I rewrote my resume four times for four different internships. With Brio I logged everything once and exported tailored versions in minutes.", a: "Sarah K. — CS sophomore, UC Berkeley" },
-            { q: "PAR narratives forced me to actually explain what I did, not just where I was. Hiring managers started replying.", a: "Marcus T. — Pre-med junior, Johns Hopkins" },
+            {
+              q: "I rewrote my resume four times for four different internships. With Brio I logged everything once and exported tailored versions in minutes.",
+              a: "Sarah K. — CS sophomore, UC Berkeley",
+            },
+            {
+              q: "PAR narratives forced me to actually explain what I did, not just where I was. Hiring managers started replying.",
+              a: "Marcus T. — Pre-med junior, Johns Hopkins",
+            },
           ].map((t) => (
-            <div key={t.a} className="rounded-md border border-[var(--surface-3)] bg-white p-5 sm:p-6">
-              <p className="text-[14px] italic leading-[1.6] text-[var(--ink)] sm:text-[15px]">"{t.q}"</p>
+            <div
+              key={t.a}
+              className="rounded-md border border-[var(--surface-3)] bg-white p-5 sm:p-6"
+            >
+              <p className="text-[14px] italic leading-[1.6] text-[var(--ink)] sm:text-[15px]">
+                "{t.q}"
+              </p>
               <p className="mt-3 text-[12px] text-[var(--ink-3)] sm:text-[13px]">{t.a}</p>
             </div>
           ))}
@@ -547,13 +698,13 @@ function FinalCTA() {
   }, []);
 
   return (
-    <section
-      ref={ref}
-      className="px-4 py-20 sm:px-5 sm:py-28"
-    >
+    <section ref={ref} className="px-4 py-20 sm:px-5 sm:py-28">
       <div
         className="mx-auto max-w-[700px] text-center transition-all duration-[500ms] ease-out"
-        style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }}
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(20px)",
+        }}
       >
         <h2 className="font-serif text-[32px] font-normal tracking-[-0.03em] text-[var(--ink)] sm:text-[48px]">
           Start before you need it.
@@ -569,7 +720,9 @@ function FinalCTA() {
             </Button>
           </Link>
         </div>
-        <p className="mt-3 text-[11px] text-[var(--ink-3)]">Free to start. No credit card required.</p>
+        <p className="mt-3 text-[11px] text-[var(--ink-3)]">
+          Free to start. No credit card required.
+        </p>
       </div>
     </section>
   );
@@ -598,12 +751,30 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 function FAQ() {
   const items = [
-    { q: "Is Brio only for university students?", a: "No. Brio is built for ambitious high-school and university students. The structure works the same way at either stage — projects, experiences, education, achievements, and evidence-backed skills." },
-    { q: "How is this different from LinkedIn?", a: "LinkedIn is a social network. Brio is a structured identity graph designed for output: tailored resumes, portfolios, and application snippets. We require evidence behind every claim." },
-    { q: "What is a PAR narrative?", a: "Problem, Action, Result. Every project asks you to describe the challenge you addressed, the specific steps you took, and the measurable outcome. It's how recruiters read your work in 30 seconds." },
-    { q: "Can I export my profile as a PDF?", a: "Yes. Generate a one-page resume tailored to a target role, or export a longer portfolio view. Your shareable URL always reflects your live profile." },
-    { q: "Who can see my profile?", a: "Your profile is private by default. You control whether it appears in search and whether your shareable link is public, link-only, or limited to specific reviewers." },
-    { q: "Is Brio free?", a: "Yes, Brio is free to start. Premium exports and program features are available on paid plans." },
+    {
+      q: "Is Brio only for university students?",
+      a: "No. Brio is built for ambitious high-school and university students. The structure works the same way at either stage — projects, experiences, education, achievements, and evidence-backed skills.",
+    },
+    {
+      q: "How is this different from LinkedIn?",
+      a: "LinkedIn is a social network. Brio is a structured identity graph designed for output: tailored resumes, portfolios, and application snippets. We require evidence behind every claim.",
+    },
+    {
+      q: "What is a PAR narrative?",
+      a: "Problem, Action, Result. Every project asks you to describe the challenge you addressed, the specific steps you took, and the measurable outcome. It's how recruiters read your work in 30 seconds.",
+    },
+    {
+      q: "Can I export my profile as a PDF?",
+      a: "Yes. Generate a one-page resume tailored to a target role, or export a longer portfolio view. Your shareable URL always reflects your live profile.",
+    },
+    {
+      q: "Who can see my profile?",
+      a: "Your profile is private by default. You control whether it appears in search and whether your shareable link is public, link-only, or limited to specific reviewers.",
+    },
+    {
+      q: "Is Brio free?",
+      a: "Yes, Brio is free to start. Premium exports and program features are available on paid plans.",
+    },
   ];
   return (
     <section id="faq" className="px-4 py-16 sm:px-5 sm:py-24">
@@ -612,7 +783,9 @@ function FAQ() {
           Common questions
         </h2>
         <div>
-          {items.map((i) => <FAQItem key={i.q} {...i} />)}
+          {items.map((i) => (
+            <FAQItem key={i.q} {...i} />
+          ))}
         </div>
       </div>
     </section>
@@ -624,17 +797,30 @@ function Footer() {
     <footer className="border-t border-[var(--surface-3)] bg-[var(--surface)] px-4 py-10 sm:px-5 sm:py-12">
       <div className="mx-auto grid max-w-[1100px] gap-8 sm:grid-cols-2 md:grid-cols-3">
         <div>
-          <div className="font-serif text-[18px] font-semibold tracking-[-0.02em] text-[var(--ink)]">Brio</div>
-          <p className="mt-2 text-[13px] text-[var(--ink-3)]">Professional identity, built from day one.</p>
+          <div className="font-serif text-[18px] font-semibold tracking-[-0.02em] text-[var(--ink)]">
+            Brio
+          </div>
+          <p className="mt-2 text-[13px] text-[var(--ink-3)]">
+            Professional identity, built from day one.
+          </p>
           <p className="mt-6 text-[11px] text-[var(--ink-3)]">© 2025 Brio</p>
         </div>
         <div className="space-y-2">
           {["Privacy", "Terms", "Contact"].map((l) => (
-            <a key={l} href="#" className="block text-[13px] text-[var(--ink-2)] hover:text-[var(--ink)] min-h-[44px] flex items-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] rounded-sm">{l}</a>
+            <a
+              key={l}
+              href="#"
+              className="block text-[13px] text-[var(--ink-2)] hover:text-[var(--ink)] min-h-[44px] flex items-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] rounded-sm"
+            >
+              {l}
+            </a>
           ))}
         </div>
         <div>
-          <Link to="/signup" className="text-[13px] font-medium text-[var(--accent-warm)] hover:text-[var(--ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] rounded-sm">
+          <Link
+            to="/signup"
+            className="text-[13px] font-medium text-[var(--accent-warm)] hover:text-[var(--ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink)] rounded-sm"
+          >
             Build your profile free →
           </Link>
         </div>

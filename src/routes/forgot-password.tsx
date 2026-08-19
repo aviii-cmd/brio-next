@@ -19,7 +19,11 @@ function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
   const [serverError, setServerError] = useState("");
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
@@ -50,7 +54,10 @@ function ForgotPasswordPage() {
             <p className="mt-2 text-[13px] text-[var(--ink-2)]">
               We've sent a password reset link to your email address.
             </p>
-            <Link to="/login" className="mt-6 block text-[13px] font-medium text-[var(--accent-warm)]">
+            <Link
+              to="/login"
+              className="mt-6 block text-[13px] font-medium text-[var(--accent-warm)]"
+            >
               Back to login →
             </Link>
           </div>
@@ -77,7 +84,13 @@ function ForgotPasswordPage() {
                   {...register("email")}
                 />
               </FormField>
-              <Button type="submit" variant="primary" size="lg" className="w-full" loading={isSubmitting}>
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                className="w-full"
+                loading={isSubmitting}
+              >
                 Send reset link
               </Button>
             </form>

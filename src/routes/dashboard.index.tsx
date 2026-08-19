@@ -2,11 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Avatar, Badge, Button, Card, EmptyState } from "@/components/brio/ui";
 import { ExternalLink, ChevronRight, Folders, TrendingUp } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import {
-  useProjects,
-  useProfileCounts,
-  useProfileCompletion,
-} from "@/hooks/useData";
+import { useProjects, useProfileCounts, useProfileCompletion } from "@/hooks/useData";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({ meta: [{ title: "Overview — Brio" }] }),
@@ -30,16 +26,56 @@ function Overview() {
 
   // Generate personalized next steps based on what's missing
   const nextActions: { t: string; s: string }[] = [];
-  if (counts.projects === 0) nextActions.push({ t: "Add your first project", s: "Projects are the core of your Brio profile." });
-  else if (counts.projects === 1) nextActions.push({ t: "Add a second project", s: "Profiles with 2+ projects see stronger recruiter interest." });
-  if (counts.experience === 0) nextActions.push({ t: "Add your first experience", s: "Internships, volunteering, and clubs all count." });
-  else if (counts.experience === 1) nextActions.push({ t: "Add a second experience entry", s: "Profiles with 3+ experiences see 2× more recruiter views." });
-  if (counts.education === 0) nextActions.push({ t: "Add your education", s: "Your institution and program signal context to reviewers." });
-  if (counts.achievements === 0) nextActions.push({ t: "Add an achievement or award", s: "Level signals matter in competitive applications." });
-  if (!profile?.goal) nextActions.push({ t: "Write your goal statement", s: "Specific goals outperform broad ambitions." });
-  if (!profile?.avatar_url) nextActions.push({ t: "Upload a profile photo", s: "Profiles with photos look more credible." });
-  if (counts.skills === 0 && counts.projects > 0) nextActions.push({ t: "Add skills to your projects", s: "Skills are derived from evidence — link them to projects." });
-  if (completion >= 80) nextActions.push({ t: "Generate your first resume export", s: "Tailor a one-page resume to a target role." });
+  if (counts.projects === 0)
+    nextActions.push({
+      t: "Add your first project",
+      s: "Projects are the core of your Brio profile.",
+    });
+  else if (counts.projects === 1)
+    nextActions.push({
+      t: "Add a second project",
+      s: "Profiles with 2+ projects see stronger recruiter interest.",
+    });
+  if (counts.experience === 0)
+    nextActions.push({
+      t: "Add your first experience",
+      s: "Internships, volunteering, and clubs all count.",
+    });
+  else if (counts.experience === 1)
+    nextActions.push({
+      t: "Add a second experience entry",
+      s: "Profiles with 3+ experiences see 2× more recruiter views.",
+    });
+  if (counts.education === 0)
+    nextActions.push({
+      t: "Add your education",
+      s: "Your institution and program signal context to reviewers.",
+    });
+  if (counts.achievements === 0)
+    nextActions.push({
+      t: "Add an achievement or award",
+      s: "Level signals matter in competitive applications.",
+    });
+  if (!profile?.goal)
+    nextActions.push({
+      t: "Write your goal statement",
+      s: "Specific goals outperform broad ambitions.",
+    });
+  if (!profile?.avatar_url)
+    nextActions.push({
+      t: "Upload a profile photo",
+      s: "Profiles with photos look more credible.",
+    });
+  if (counts.skills === 0 && counts.projects > 0)
+    nextActions.push({
+      t: "Add skills to your projects",
+      s: "Skills are derived from evidence — link them to projects.",
+    });
+  if (completion >= 80)
+    nextActions.push({
+      t: "Generate your first resume export",
+      s: "Tailor a one-page resume to a target role.",
+    });
 
   const displayActions = nextActions.slice(0, 5);
   const featuredProjects = projects.filter((p) => p.featured);
@@ -66,7 +102,11 @@ function Overview() {
               {profile?.name || "Add your name"}
             </div>
             <div className="text-[13px] text-[var(--ink-3)]">
-              {[profile?.school, profile?.program, profile?.graduation_year ? `Class of ${profile.graduation_year}` : null]
+              {[
+                profile?.school,
+                profile?.program,
+                profile?.graduation_year ? `Class of ${profile.graduation_year}` : null,
+              ]
                 .filter(Boolean)
                 .join(" · ") || "Add your school and program"}
             </div>
@@ -89,13 +129,17 @@ function Overview() {
               <div className="text-[30px] sm:text-[36px] font-light tracking-[-0.03em] text-[var(--ink)]">
                 {counts.projects}
               </div>
-              <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">Projects</div>
+              <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">
+                Projects
+              </div>
             </div>
             <div>
               <div className="text-[30px] sm:text-[36px] font-light tracking-[-0.03em] text-[var(--ink)]">
                 {counts.experience}
               </div>
-              <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">Experience</div>
+              <div className="text-[11px] uppercase tracking-[0.04em] text-[var(--ink-3)]">
+                Experience
+              </div>
             </div>
           </div>
         </div>
@@ -110,7 +154,9 @@ function Overview() {
             </div>
           </div>
           <Link to="/settings">
-            <Button variant="ghost" size="sm">Edit profile</Button>
+            <Button variant="ghost" size="sm">
+              Edit profile
+            </Button>
           </Link>
         </div>
       </div>
@@ -181,7 +227,9 @@ function Overview() {
               body="Mark a project as featured to highlight your best work here."
               cta={
                 <Link to="/dashboard/projects">
-                  <Button variant="primary" size="sm">Add a project</Button>
+                  <Button variant="primary" size="sm">
+                    Add a project
+                  </Button>
                 </Link>
               }
             />

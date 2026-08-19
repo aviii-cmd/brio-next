@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Badge, Button, Card, PageHeader, FormField, Input, EmptyState } from "@/components/brio/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  PageHeader,
+  FormField,
+  Input,
+  EmptyState,
+} from "@/components/brio/ui";
 import { Drawer } from "@/components/brio/Drawer";
 import { MoreHorizontal, Plus, GraduationCap, Trash2, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,8 +40,14 @@ function EducationPage() {
   const [editing, setEditing] = useState<Education | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
-  const onAdd = () => { setEditing(null); setOpen(true); };
-  const onEdit = (e: Education) => { setEditing(e); setOpen(true); };
+  const onAdd = () => {
+    setEditing(null);
+    setOpen(true);
+  };
+  const onEdit = (e: Education) => {
+    setEditing(e);
+    setOpen(true);
+  };
 
   const handleSave = (values: EducationFormValues) => {
     if (editing) {
@@ -52,7 +66,15 @@ function EducationPage() {
   if (isLoading) {
     return (
       <>
-        <PageHeader title="Education" action={<Button variant="primary" onClick={onAdd}><Plus className="h-4 w-4" />Add education</Button>} />
+        <PageHeader
+          title="Education"
+          action={
+            <Button variant="primary" onClick={onAdd}>
+              <Plus className="h-4 w-4" />
+              Add education
+            </Button>
+          }
+        />
         <div className="space-y-4">
           <div className="h-36 rounded-lg brio-skeleton" />
         </div>
@@ -65,7 +87,12 @@ function EducationPage() {
       <PageHeader
         title="Education"
         subtitle="Your academic background. Include high school and university."
-        action={<Button variant="primary" onClick={onAdd}><Plus className="h-4 w-4" />Add education</Button>}
+        action={
+          <Button variant="primary" onClick={onAdd}>
+            <Plus className="h-4 w-4" />
+            Add education
+          </Button>
+        }
       />
 
       {education.length === 0 ? (
@@ -76,7 +103,8 @@ function EducationPage() {
             body="Add your current institution and any previous education. Include relevant coursework to show depth in your field."
             cta={
               <Button variant="primary" onClick={onAdd}>
-                <Plus className="h-4 w-4" />Add your education
+                <Plus className="h-4 w-4" />
+                Add your education
               </Button>
             }
           />
@@ -89,7 +117,8 @@ function EducationPage() {
                 <div className="flex-1">
                   <div className="text-[15px] font-medium text-[var(--ink)]">{e.institution}</div>
                   <div className="text-[13px] text-[var(--ink-2)]">
-                    {e.program}{e.field && e.field !== e.program ? ` · ${e.field}` : ""}
+                    {e.program}
+                    {e.field && e.field !== e.program ? ` · ${e.field}` : ""}
                   </div>
                   <div className="mt-1 text-[11px] text-[var(--ink-3)]">
                     {e.start_year}
@@ -102,7 +131,9 @@ function EducationPage() {
                         Key coursework
                       </div>
                       <div className="flex flex-wrap gap-1.5">
-                        {e.coursework.slice(0, 5).map((c) => <Badge key={c}>{c}</Badge>)}
+                        {e.coursework.slice(0, 5).map((c) => (
+                          <Badge key={c}>{c}</Badge>
+                        ))}
                         {e.coursework.length > 5 && <Badge>+{e.coursework.length - 5} more</Badge>}
                       </div>
                     </div>
@@ -139,12 +170,19 @@ function EducationPage() {
 
       {confirmDelete && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-[2px] px-5">
-          <div className="w-full max-w-[400px] rounded-lg bg-white p-8" style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}>
+          <div
+            className="w-full max-w-[400px] rounded-lg bg-white p-8"
+            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
+          >
             <h2 className="text-[18px] font-medium text-[var(--ink)]">Delete education?</h2>
             <p className="mt-2 text-[13px] text-[var(--ink-2)]">This cannot be undone.</p>
             <div className="mt-6 flex justify-end gap-2">
-              <Button variant="ghost" onClick={() => setConfirmDelete(null)}>Cancel</Button>
-              <Button variant="destructive" onClick={() => handleDelete(confirmDelete)}>Delete</Button>
+              <Button variant="ghost" onClick={() => setConfirmDelete(null)}>
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={() => handleDelete(confirmDelete)}>
+                Delete
+              </Button>
             </div>
           </div>
         </div>
@@ -154,19 +192,34 @@ function EducationPage() {
 }
 
 function EducationDrawer({
-  open, onClose, education, onSave,
+  open,
+  onClose,
+  education,
+  onSave,
 }: {
   open: boolean;
   onClose: () => void;
   education: Education | null;
   onSave: (v: EducationFormValues) => void;
 }) {
-  const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<EducationFormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<EducationFormValues>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
-      institution: "", program: "", field: "",
-      start_year: "", end_year: "", gpa: null,
-      coursework: [], is_current: false,
+      institution: "",
+      program: "",
+      field: "",
+      start_year: "",
+      end_year: "",
+      gpa: null,
+      coursework: [],
+      is_current: false,
     },
   });
 
@@ -188,7 +241,16 @@ function EducationDrawer({
         is_current: education.is_current,
       });
     } else {
-      reset({ institution: "", program: "", field: "", start_year: "", end_year: "", gpa: null, coursework: [], is_current: false });
+      reset({
+        institution: "",
+        program: "",
+        field: "",
+        start_year: "",
+        end_year: "",
+        gpa: null,
+        coursework: [],
+        is_current: false,
+      });
     }
     setCourseInput("");
   }, [education, open, reset]);
@@ -211,10 +273,18 @@ function EducationDrawer({
       }
     >
       <FormField label="Institution" required error={errors.institution?.message}>
-        <Input {...register("institution")} placeholder="University, college, or high school" error={!!errors.institution} />
+        <Input
+          {...register("institution")}
+          placeholder="University, college, or high school"
+          error={!!errors.institution}
+        />
       </FormField>
       <FormField label="Degree / Programme" required error={errors.program?.message}>
-        <Input {...register("program")} placeholder="e.g., B.S. Computer Science" error={!!errors.program} />
+        <Input
+          {...register("program")}
+          placeholder="e.g., B.S. Computer Science"
+          error={!!errors.program}
+        />
       </FormField>
       <FormField label="Field of study">
         <Input {...register("field")} placeholder="e.g., Computer Science" />
@@ -234,7 +304,9 @@ function EducationDrawer({
           {...register("is_current")}
           className="h-4 w-4 rounded border-[var(--surface-3)]"
         />
-        <label htmlFor="edu_is_current" className="text-[13px] text-[var(--ink-2)]">Currently enrolled</label>
+        <label htmlFor="edu_is_current" className="text-[13px] text-[var(--ink-2)]">
+          Currently enrolled
+        </label>
       </div>
       <FormField label="GPA" helper="Optional">
         <Input {...register("gpa")} placeholder="3.8" />
@@ -245,17 +317,29 @@ function EducationDrawer({
             <Input
               value={courseInput}
               onChange={(e) => setCourseInput(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addCourse(); } }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addCourse();
+                }
+              }}
               placeholder="e.g., Data Structures"
             />
-            <Button type="button" variant="secondary" size="md" onClick={addCourse}>Add</Button>
+            <Button type="button" variant="secondary" size="md" onClick={addCourse}>
+              Add
+            </Button>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {coursework.map((c) => (
               <button
                 key={c}
                 type="button"
-                onClick={() => setValue("coursework", coursework.filter((x) => x !== c))}
+                onClick={() =>
+                  setValue(
+                    "coursework",
+                    coursework.filter((x) => x !== c),
+                  )
+                }
                 className="inline-flex items-center gap-1 rounded-full border border-[var(--surface-3)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] text-[var(--ink-2)]"
               >
                 {c} <X className="h-3 w-3 text-[var(--ink-3)]" />

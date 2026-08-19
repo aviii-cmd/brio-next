@@ -17,11 +17,7 @@ import { useProjects } from "@/hooks/useData";
  * projects by title, type, or skill, plus a shortcut to create a new
  * project (PRD §5.3, §6.3, AC4).
  */
-export function CommandPalette({
-  onCreateProject,
-}: {
-  onCreateProject: () => void;
-}) {
+export function CommandPalette({ onCreateProject }: { onCreateProject: () => void }) {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();

@@ -1,21 +1,19 @@
 import * as React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import {
-  Plus,
-  Folders,
-  LayoutGrid,
-  List as ListIcon,
-  Search,
-  Sparkles,
-} from "lucide-react";
+import { Plus, Folders, LayoutGrid, List as ListIcon, Search, Sparkles } from "lucide-react";
 import { PageHeader, Button, EmptyState, Input, FormField, Textarea } from "@/components/brio/ui";
 import { Drawer } from "@/components/brio/Drawer";
 import { ProjectCard } from "@/components/brio/ProjectsUI";
 import { CommandPaletteTrigger } from "@/components/brio/CommandPalette";
 import { useAuth } from "@/hooks/useAuth";
 import { useProjects, useCreateProject } from "@/hooks/useData";
-import { PROJECT_TEMPLATES, PROJECT_TYPES, projectCreateSchema, type ProjectCreateValues } from "@/lib/schemas";
+import {
+  PROJECT_TEMPLATES,
+  PROJECT_TYPES,
+  projectCreateSchema,
+  type ProjectCreateValues,
+} from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { Project, ProjectStatus } from "@/types/database";
@@ -56,7 +54,12 @@ function ProjectsHome() {
   );
 
   const statusCounts = useMemo(() => {
-    const counts: Record<StatusFilter, number> = { all: projects.length, draft: 0, published: 0, archived: 0 };
+    const counts: Record<StatusFilter, number> = {
+      all: projects.length,
+      draft: 0,
+      published: 0,
+      archived: 0,
+    };
     for (const p of projects) counts[p.status]++;
     return counts;
   }, [projects]);
@@ -132,7 +135,11 @@ function ProjectsHome() {
         subtitle="Turn raw work into polished case studies."
         action={
           <div className="flex items-center gap-2">
-            <CommandPaletteTrigger onClick={() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))} />
+            <CommandPaletteTrigger
+              onClick={() =>
+                document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))
+              }
+            />
             <Button variant="primary" size="md" onClick={() => setCreateOpen(true)}>
               <Plus className="h-4 w-4" />
               New project
@@ -159,7 +166,10 @@ function ProjectsHome() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           {/* Side rail: status + type filters */}
           <aside className="lg:w-48 lg:shrink-0">
-            <nav aria-label="Project filters" className="flex gap-1.5 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
+            <nav
+              aria-label="Project filters"
+              className="flex gap-1.5 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"
+            >
               {(["all", "draft", "published", "archived"] as StatusFilter[]).map((s) => (
                 <button
                   key={s}
@@ -188,7 +198,9 @@ function ProjectsHome() {
                 >
                   <option value="all">All types</option>
                   {allTypes.map((t) => (
-                    <option key={t} value={t}>{t}</option>
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -210,7 +222,12 @@ function ProjectsHome() {
                   aria-label="Grid view"
                   aria-pressed={view === "grid"}
                   onClick={() => setView("grid")}
-                  className={cn("flex h-7 w-7 items-center justify-center rounded-[3px]", view === "grid" ? "bg-[var(--surface-2)] text-[var(--ink)]" : "text-[var(--ink-3)]")}
+                  className={cn(
+                    "flex h-7 w-7 items-center justify-center rounded-[3px]",
+                    view === "grid"
+                      ? "bg-[var(--surface-2)] text-[var(--ink)]"
+                      : "text-[var(--ink-3)]",
+                  )}
                 >
                   <LayoutGrid className="h-3.5 w-3.5" />
                 </button>
@@ -218,7 +235,12 @@ function ProjectsHome() {
                   aria-label="List view"
                   aria-pressed={view === "list"}
                   onClick={() => setView("list")}
-                  className={cn("flex h-7 w-7 items-center justify-center rounded-[3px]", view === "list" ? "bg-[var(--surface-2)] text-[var(--ink)]" : "text-[var(--ink-3)]")}
+                  className={cn(
+                    "flex h-7 w-7 items-center justify-center rounded-[3px]",
+                    view === "list"
+                      ? "bg-[var(--surface-2)] text-[var(--ink)]"
+                      : "text-[var(--ink-3)]",
+                  )}
                 >
                   <ListIcon className="h-3.5 w-3.5" />
                 </button>
@@ -227,12 +249,24 @@ function ProjectsHome() {
 
             {!isFilteredView && featured.length > 0 && (
               <section aria-labelledby="featured-heading">
-                <h2 id="featured-heading" className="mb-3 text-[13px] font-medium text-[var(--ink)]">
+                <h2
+                  id="featured-heading"
+                  className="mb-3 text-[13px] font-medium text-[var(--ink)]"
+                >
                   Featured
                 </h2>
-                <div className={view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"}>
+                <div
+                  className={
+                    view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"
+                  }
+                >
                   {featured.map((p) => (
-                    <ProjectCard key={p.id} project={p} view={view} readinessScore={narrativeCompleteness(p)} />
+                    <ProjectCard
+                      key={p.id}
+                      project={p}
+                      view={view}
+                      readinessScore={narrativeCompleteness(p)}
+                    />
                   ))}
                 </div>
               </section>
@@ -240,13 +274,25 @@ function ProjectsHome() {
 
             {!isFilteredView && needsPolishing.length > 0 && (
               <section aria-labelledby="polish-heading">
-                <h2 id="polish-heading" className="mb-3 flex items-center gap-1.5 text-[13px] font-medium text-[var(--ink)]">
+                <h2
+                  id="polish-heading"
+                  className="mb-3 flex items-center gap-1.5 text-[13px] font-medium text-[var(--ink)]"
+                >
                   <Sparkles className="h-3.5 w-3.5 text-[var(--accent-warm)]" />
                   Needs polishing
                 </h2>
-                <div className={view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"}>
+                <div
+                  className={
+                    view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"
+                  }
+                >
                   {needsPolishing.map((p) => (
-                    <ProjectCard key={p.id} project={p} view={view} readinessScore={narrativeCompleteness(p)} />
+                    <ProjectCard
+                      key={p.id}
+                      project={p}
+                      view={view}
+                      readinessScore={narrativeCompleteness(p)}
+                    />
                   ))}
                 </div>
               </section>
@@ -254,16 +300,27 @@ function ProjectsHome() {
 
             <section aria-labelledby="all-heading">
               <h2 id="all-heading" className="mb-3 text-[13px] font-medium text-[var(--ink)]">
-                {isFilteredView ? `${filtered.length} project${filtered.length === 1 ? "" : "s"}` : "All projects"}
+                {isFilteredView
+                  ? `${filtered.length} project${filtered.length === 1 ? "" : "s"}`
+                  : "All projects"}
               </h2>
               {filtered.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-[var(--surface-3)] bg-[var(--surface-2)] py-10 text-center text-[13px] text-[var(--ink-2)]">
                   No projects match these filters.
                 </div>
               ) : (
-                <div className={view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"}>
+                <div
+                  className={
+                    view === "grid" ? "grid gap-5 sm:grid-cols-2 lg:grid-cols-3" : "space-y-2"
+                  }
+                >
                   {filtered.map((p) => (
-                    <ProjectCard key={p.id} project={p} view={view} readinessScore={narrativeCompleteness(p)} />
+                    <ProjectCard
+                      key={p.id}
+                      project={p}
+                      view={view}
+                      readinessScore={narrativeCompleteness(p)}
+                    />
                   ))}
                 </div>
               )}
@@ -272,7 +329,11 @@ function ProjectsHome() {
         </div>
       )}
 
-      <CreateProjectDrawer open={createOpen} onClose={() => setCreateOpen(false)} onCreate={handleCreate} />
+      <CreateProjectDrawer
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onCreate={handleCreate}
+      />
     </>
   );
 }
@@ -295,11 +356,18 @@ function CreateProjectDrawer({
     formState: { errors },
   } = useForm<ProjectCreateValues>({
     resolver: zodResolver(projectCreateSchema),
-    defaultValues: { title: "", type: "Personal Project", role: "", summary: "", template: "blank" },
+    defaultValues: {
+      title: "",
+      type: "Personal Project",
+      role: "",
+      summary: "",
+      template: "blank",
+    },
   });
 
   React.useEffect(() => {
-    if (open) reset({ title: "", type: "Personal Project", role: "", summary: "", template: "blank" });
+    if (open)
+      reset({ title: "", type: "Personal Project", role: "", summary: "", template: "blank" });
   }, [open, reset]);
 
   const template = watch("template");
@@ -319,7 +387,12 @@ function CreateProjectDrawer({
         Start with the basics — you can fill in the full story once you&apos;re on the project page.
       </p>
       <FormField label="Project title" required error={errors.title?.message}>
-        <Input {...register("title")} error={!!errors.title} placeholder="e.g. Campus food-waste tracker" autoFocus />
+        <Input
+          {...register("title")}
+          error={!!errors.title}
+          placeholder="e.g. Campus food-waste tracker"
+          autoFocus
+        />
       </FormField>
       <FormField label="Type">
         <select
@@ -335,7 +408,10 @@ function CreateProjectDrawer({
         <Input {...register("role")} placeholder="e.g. Team lead, Sole builder" />
       </FormField>
       <FormField label="Summary" helper="2-3 sentences — the problem and outcome, in brief.">
-        <Textarea {...register("summary")} placeholder="A short overview of what this project is and why it matters." />
+        <Textarea
+          {...register("summary")}
+          placeholder="A short overview of what this project is and why it matters."
+        />
       </FormField>
       <FormField label="Template" helper="Pre-fills section hints for common project types.">
         <div className="grid grid-cols-2 gap-2">

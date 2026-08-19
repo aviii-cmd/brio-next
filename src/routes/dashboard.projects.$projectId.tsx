@@ -75,17 +75,22 @@ const SECTIONS = [
 // (PRD §5.1 templates, §8 "soft hints" for incomplete narratives).
 const HINTS: Record<string, Record<string, string>> = {
   hackathon: {
-    problem: "What challenge did the hackathon prompt pose, and what constraints (48 hours? a specific API?) shaped your approach?",
-    action: "Walk through how the team divided work, what you personally built, and the key technical decisions.",
-    result: "What did you ship by demo time? Did you place, get feedback from judges, or keep building after?",
+    problem:
+      "What challenge did the hackathon prompt pose, and what constraints (48 hours? a specific API?) shaped your approach?",
+    action:
+      "Walk through how the team divided work, what you personally built, and the key technical decisions.",
+    result:
+      "What did you ship by demo time? Did you place, get feedback from judges, or keep building after?",
   },
   internship: {
     problem: "What business or technical problem was your team trying to solve when you joined?",
     action: "What was your day-to-day? Which parts of the system or process did you own?",
-    result: "What shipped because of your work? Cite metrics or manager/mentor feedback if you have them.",
+    result:
+      "What shipped because of your work? Cite metrics or manager/mentor feedback if you have them.",
   },
   default: {
-    problem: "What problem were you solving, and what constraints (time, resources, skills) did you face?",
+    problem:
+      "What problem were you solving, and what constraints (time, resources, skills) did you face?",
     constraints: "Any specific limitations — budget, timeline, tech stack — worth calling out?",
     action: "Walk through your approach step by step. What did you try, and why?",
     result: "What was the measurable or qualitative outcome? Numbers, feedback, adoption?",
@@ -186,8 +191,14 @@ function ProjectDetailPage() {
             </div>
           )}
           <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/0 opacity-0 transition-all duration-150 group-hover:bg-black/30 group-hover:opacity-100">
-            <Button variant="secondary" size="sm" onClick={() => coverInputRef.current?.click()} loading={uploadCover.isPending}>
-              <Camera className="h-3.5 w-3.5" /> {draft.cover_image_url ? "Change cover" : "Add cover image"}
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => coverInputRef.current?.click()}
+              loading={uploadCover.isPending}
+            >
+              <Camera className="h-3.5 w-3.5" />{" "}
+              {draft.cover_image_url ? "Change cover" : "Add cover image"}
             </Button>
             {draft.cover_image_url && (
               <Button
@@ -239,7 +250,12 @@ function ProjectDetailPage() {
               aria-label="Toggle featured"
               className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--ink-3)] hover:bg-[var(--surface-2)]"
             >
-              <Star className={cn("h-3.5 w-3.5", draft.featured && "fill-[var(--accent-warm)] text-[var(--accent-warm)]")} />
+              <Star
+                className={cn(
+                  "h-3.5 w-3.5",
+                  draft.featured && "fill-[var(--accent-warm)] text-[var(--accent-warm)]",
+                )}
+              />
             </button>
             <div className="ml-auto flex items-center gap-2">
               <AutosaveIndicator status={autosaveStatus} />
@@ -322,7 +338,9 @@ function ProjectDetailPage() {
             placeholder={hint(draft.template, "summary")}
             rows={2}
           />
-          <p className="mt-1 text-right text-[11px] text-[var(--ink-3)]">{draft.summary.length}/500</p>
+          <p className="mt-1 text-right text-[11px] text-[var(--ink-3)]">
+            {draft.summary.length}/500
+          </p>
 
           <div className="mt-6">
             <SectionLabel>Problem &amp; Objectives</SectionLabel>
@@ -508,7 +526,10 @@ function ProjectMenu({
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={onDelete} className="text-[var(--error)] focus:text-[var(--error)]">
+        <DropdownMenuItem
+          onClick={onDelete}
+          className="text-[var(--error)] focus:text-[var(--error)]"
+        >
           <Trash2 className="mr-2 h-4 w-4" /> Delete permanently
         </DropdownMenuItem>
       </DropdownMenuContent>

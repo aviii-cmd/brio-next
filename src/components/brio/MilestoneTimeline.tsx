@@ -143,7 +143,11 @@ function MilestoneRow({
         <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--ink)]" />
         {!isLast && <span className="mt-1 w-px flex-1 bg-[var(--surface-3)]" />}
       </div>
-      <button type="button" onClick={() => setEditing(true)} className="min-w-0 flex-1 pb-2 text-left">
+      <button
+        type="button"
+        onClick={() => setEditing(true)}
+        className="min-w-0 flex-1 pb-2 text-left"
+      >
         <div className="flex flex-wrap items-baseline gap-2">
           <span className="text-[14px] font-medium text-[var(--ink)]">{milestone.title}</span>
           {milestone.milestone_date && (

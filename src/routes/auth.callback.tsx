@@ -52,7 +52,9 @@ function AuthCallback() {
 
       // At this point either the code was exchanged or the session was implicit.
       // Fetch the current session to decide where to send the user.
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
       if (!session && !cancelled) {
         setError("Authentication failed. Please try again.");
@@ -77,7 +79,9 @@ function AuthCallback() {
     }
 
     handleCallback();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
 
   if (error) {
@@ -87,7 +91,9 @@ function AuthCallback() {
           className="w-full max-w-[400px] rounded-md border border-[var(--surface-3)] bg-white p-8 text-center"
           style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}
         >
-          <div className="mb-4 font-serif text-[22px] font-semibold tracking-[-0.02em] text-[var(--ink)]">Brio</div>
+          <div className="mb-4 font-serif text-[22px] font-semibold tracking-[-0.02em] text-[var(--ink)]">
+            Brio
+          </div>
           <p className="text-[15px] font-medium text-[var(--ink)]">Sign in failed</p>
           <p className="mt-2 text-[13px] text-[var(--ink-2)]">{error}</p>
           <a

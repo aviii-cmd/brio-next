@@ -34,11 +34,7 @@ import type {
 // ============================================================
 export const profileService = {
   async get(userId: string): Promise<Profile> {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .single();
+    const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
     if (error) throw error;
     return data;
   },
@@ -94,11 +90,7 @@ export const projectService = {
   },
 
   async create(project: ProjectInsert): Promise<Project> {
-    const { data, error } = await supabase
-      .from("projects")
-      .insert(project)
-      .select()
-      .single();
+    const { data, error } = await supabase.from("projects").insert(project).select().single();
     if (error) throw error;
     return data;
   },
@@ -137,7 +129,11 @@ export const projectService = {
   // Storage paths are namespaced `${userId}/${projectId}/...`; we only have
   // the projectId here, so look up the owner first to build the folder path.
   async resolveArtifactFolder(projectId: string): Promise<string | null> {
-    const { data } = await supabase.from("projects").select("user_id").eq("id", projectId).maybeSingle();
+    const { data } = await supabase
+      .from("projects")
+      .select("user_id")
+      .eq("id", projectId)
+      .maybeSingle();
     return data ? `${data.user_id}/${projectId}` : null;
   },
 
@@ -217,11 +213,7 @@ export const experienceService = {
   },
 
   async create(exp: ExperienceInsert): Promise<Experience> {
-    const { data, error } = await supabase
-      .from("experience")
-      .insert(exp)
-      .select()
-      .single();
+    const { data, error } = await supabase.from("experience").insert(exp).select().single();
     if (error) throw error;
     return data;
   },
@@ -259,11 +251,7 @@ export const educationService = {
   },
 
   async create(edu: EducationInsert): Promise<Education> {
-    const { data, error } = await supabase
-      .from("education")
-      .insert(edu)
-      .select()
-      .single();
+    const { data, error } = await supabase.from("education").insert(edu).select().single();
     if (error) throw error;
     return data;
   },
@@ -587,10 +575,9 @@ export const tagService = {
     const trimmed = name.trim();
     const { data, error } = await supabase
       .from("tags")
-      .upsert(
-        { user_id: userId, name: trimmed, type } satisfies TagInsert,
-        { onConflict: "user_id,name,type" },
-      )
+      .upsert({ user_id: userId, name: trimmed, type } satisfies TagInsert, {
+        onConflict: "user_id,name,type",
+      })
       .select()
       .single();
     if (error) throw error;
@@ -641,7 +628,11 @@ export function calculateProjectReadiness(
     { label: "Solution & process", done: project.action.trim().length > 0, weight: 14 },
     { label: "Milestones", done: counts.milestones > 0, weight: 10 },
     { label: "Results & metrics", done: project.result.trim().length > 0, weight: 14 },
-    { label: "Skills & technologies", done: counts.tags > 0 || project.skills.length > 0, weight: 10 },
+    {
+      label: "Skills & technologies",
+      done: counts.tags > 0 || project.skills.length > 0,
+      weight: 10,
+    },
     { label: "Artifacts", done: counts.artifacts > 0, weight: 12 },
     { label: "Reflection", done: project.reflection.trim().length > 0, weight: 6 },
   ];
@@ -750,7 +741,13 @@ export const onboardingService = {
 // ============================================================
 export function calculateProfileCompletion(
   profile: Profile | null,
-  counts: { projects: number; experience: number; education: number; achievements: number; skills: number },
+  counts: {
+    projects: number;
+    experience: number;
+    education: number;
+    achievements: number;
+    skills: number;
+  },
 ): number {
   if (!profile) return 0;
   let score = 0;

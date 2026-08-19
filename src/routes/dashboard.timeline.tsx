@@ -54,7 +54,8 @@ function TimelinePage() {
         title: e.role,
         subtitle: e.org,
         year: e.start_date
-          ? parseInt(e.start_date.split("-")[0] ?? e.start_date, 10) || new Date(e.created_at).getFullYear()
+          ? parseInt(e.start_date.split("-")[0] ?? e.start_date, 10) ||
+            new Date(e.created_at).getFullYear()
           : new Date(e.created_at).getFullYear(),
         summary: e.bullets[0],
       })),
@@ -79,7 +80,8 @@ function TimelinePage() {
   }, [projects, experience, education, achievements]);
 
   const years = Array.from(new Set(timeline.map((t) => t.year))).sort((a, b) => b - a);
-  const filtered = yearFilter === "All" ? timeline : timeline.filter((t) => String(t.year) === yearFilter);
+  const filtered =
+    yearFilter === "All" ? timeline : timeline.filter((t) => String(t.year) === yearFilter);
 
   const grouped = filtered.reduce<Record<number, TimelineItem[]>>((acc, t) => {
     acc[t.year] = acc[t.year] ?? [];
@@ -102,7 +104,11 @@ function TimelinePage() {
               className="h-11 rounded-[4px] border border-[var(--surface-3)] bg-white px-3 text-[13px] text-[var(--ink)] focus:border-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[rgba(10,10,10,0.08)] transition-all"
             >
               <option value="All">All years</option>
-              {years.map((y) => <option key={y} value={String(y)}>{y}</option>)}
+              {years.map((y) => (
+                <option key={y} value={String(y)}>
+                  {y}
+                </option>
+              ))}
             </select>
           ) : undefined
         }
@@ -139,7 +145,9 @@ function TimelinePage() {
                             {t.subtitle}
                           </div>
                           {t.summary && (
-                            <p className="mt-2 line-clamp-2 text-[13px] text-[var(--ink-2)]">{t.summary}</p>
+                            <p className="mt-2 line-clamp-2 text-[13px] text-[var(--ink-2)]">
+                              {t.summary}
+                            </p>
                           )}
                         </div>
                       </div>

@@ -3,7 +3,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, ExternalLink, FileText, Play, Github, Figma } from "lucide-react";
 import { Avatar } from "@/components/brio/ui";
-import { usePublicProject, useProjectMilestones, useProjectArtifacts, useProjectTags } from "@/hooks/useProjectWorkspace";
+import {
+  usePublicProject,
+  useProjectMilestones,
+  useProjectArtifacts,
+  useProjectTags,
+} from "@/hooks/useProjectWorkspace";
 import { useProfile } from "@/hooks/useData";
 import type { ProjectArtifact } from "@/types/database";
 import { cn } from "@/lib/utils";
@@ -33,11 +38,16 @@ function PublicProjectPage() {
   if (isFetched && !project) {
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center px-6 text-center">
-        <h1 className="text-[20px] font-medium text-[var(--ink)]">This project isn&apos;t available</h1>
+        <h1 className="text-[20px] font-medium text-[var(--ink)]">
+          This project isn&apos;t available
+        </h1>
         <p className="mt-2 max-w-sm text-[13px] text-[var(--ink-2)]">
           It may have been unpublished, or the link is incorrect.
         </p>
-        <Link to="/" className="mt-5 text-[13px] font-medium text-[var(--ink)] underline underline-offset-2">
+        <Link
+          to="/"
+          className="mt-5 text-[13px] font-medium text-[var(--ink)] underline underline-offset-2"
+        >
           Go to Brio
         </Link>
       </div>
@@ -125,8 +135,12 @@ function PublicProjectPage() {
                           </span>
                         )}
                       </div>
-                      {m.description && <p className="mt-1 text-[14px] text-[var(--ink-2)]">{m.description}</p>}
-                      {m.outcome && <p className="mt-1 text-[13px] text-[var(--success)]">→ {m.outcome}</p>}
+                      {m.description && (
+                        <p className="mt-1 text-[14px] text-[var(--ink-2)]">{m.description}</p>
+                      )}
+                      {m.outcome && (
+                        <p className="mt-1 text-[13px] text-[var(--success)]">→ {m.outcome}</p>
+                      )}
                     </li>
                   ))}
                 </ol>
@@ -213,10 +227,18 @@ function CollapsibleSection({ title, children }: { title: string; children: Reac
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-2 text-left"
       >
-        <h2 id={headingId} className="text-[13px] font-medium uppercase tracking-[0.04em] text-[var(--ink-3)]">
+        <h2
+          id={headingId}
+          className="text-[13px] font-medium uppercase tracking-[0.04em] text-[var(--ink-3)]"
+        >
           {title}
         </h2>
-        <ChevronDown className={cn("h-4 w-4 shrink-0 text-[var(--ink-3)] transition-transform", open && "rotate-180")} />
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 shrink-0 text-[var(--ink-3)] transition-transform",
+            open && "rotate-180",
+          )}
+        />
       </button>
       {open && <div className="mt-4">{children}</div>}
     </section>

@@ -42,7 +42,10 @@ function SignupPage() {
     setServerError("");
     const { error } = await signUp(values.email, values.password, values.name);
     if (error) {
-      if (error.message.includes("already registered") || error.message.includes("already exists")) {
+      if (
+        error.message.includes("already registered") ||
+        error.message.includes("already exists")
+      ) {
         setServerError("An account with this email already exists. Try logging in.");
       } else {
         setServerError(error.message);
@@ -63,7 +66,9 @@ function SignupPage() {
         </div>
 
         <h1 className="text-[18px] font-medium text-[var(--ink)]">Create your profile</h1>
-        <p className="mb-6 text-[13px] text-[var(--ink-2)]">Start building your professional identity.</p>
+        <p className="mb-6 text-[13px] text-[var(--ink-2)]">
+          Start building your professional identity.
+        </p>
 
         {serverError && (
           <div className="mb-4 rounded-md bg-[rgba(192,57,43,0.08)] px-3 py-2 text-[13px] text-[var(--error)]">
@@ -109,7 +114,13 @@ function SignupPage() {
             </div>
           </FormField>
 
-          <Button type="submit" variant="primary" size="lg" className="mt-2 w-full" loading={isSubmitting}>
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            className="mt-2 w-full"
+            loading={isSubmitting}
+          >
             Create account
           </Button>
         </form>

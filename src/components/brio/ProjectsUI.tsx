@@ -36,7 +36,13 @@ export function StatusBadge({ status, className }: { status: ProjectStatus; clas
 // ============================================================
 // AUTOSAVE INDICATOR
 // ============================================================
-export function AutosaveIndicator({ status, className }: { status: AutosaveStatus; className?: string }) {
+export function AutosaveIndicator({
+  status,
+  className,
+}: {
+  status: AutosaveStatus;
+  className?: string;
+}) {
   return (
     <div className={cn("flex items-center gap-1.5 text-[11px] text-[var(--ink-3)]", className)}>
       {status === "saving" && (
@@ -162,8 +168,7 @@ export function ReadinessBar({
       {!compact && missing.length > 0 && (
         <p className="mt-1.5 text-[11px] text-[var(--ink-3)]">
           Add {missing.slice(0, 2).join(" and ")}
-          {missing.length > 2 ? `, +${missing.length - 2} more` : ""} to strengthen this case
-          study.
+          {missing.length > 2 ? `, +${missing.length - 2} more` : ""} to strengthen this case study.
         </p>
       )}
     </div>
@@ -241,8 +246,12 @@ export function ProjectCard({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="truncate text-[14px] font-medium text-[var(--ink)]">{project.title}</span>
-            {project.featured && <Star className="h-3 w-3 shrink-0 fill-[var(--accent-warm)] text-[var(--accent-warm)]" />}
+            <span className="truncate text-[14px] font-medium text-[var(--ink)]">
+              {project.title}
+            </span>
+            {project.featured && (
+              <Star className="h-3 w-3 shrink-0 fill-[var(--accent-warm)] text-[var(--accent-warm)]" />
+            )}
           </div>
           <div className="truncate text-[12px] text-[var(--ink-3)]">
             {project.type}
@@ -308,13 +317,7 @@ export function ProjectCard({
 // ============================================================
 // SECTION LABEL (project page section headers)
 // ============================================================
-export function SectionLabel({
-  children,
-  id,
-}: {
-  children: React.ReactNode;
-  id?: string;
-}) {
+export function SectionLabel({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
     <h2
       id={id}
